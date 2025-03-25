@@ -1,0 +1,60 @@
+﻿<Window x:Class="KURSOVAYA.View.Windows.AddRecordsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KURSOVAYA.View.Windows"
+        mc:Ignorable="d"
+        Title="AddRecordsWindow" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
+    <Grid Margin="30">
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="500"/>
+            </Grid.ColumnDefinitions>
+
+
+            <TextBlock Text="Добавить запись на шоу"  Grid.ColumnSpan="4" FontSize="40" 
+          FontWeight="Bold" HorizontalAlignment="Center" />
+
+
+            <TextBlock Text="Название:" Grid.Row="2" VerticalAlignment="Center" />
+            <ComboBox Name="TitleCmb" Grid.Row="2" Width="300" HorizontalAlignment="Left" Grid.Column="2" />
+            
+            <Button Content="Добавить шоу" Grid.Row="2" Grid.Column="2" Height="50" Width="140" 
+            HorizontalAlignment="Right" Name="AddShowBtn" Click="AddShowBtn_Click"/>
+
+            <StackPanel Grid.Row="4" Orientation="Horizontal" Grid.ColumnSpan="3">
+                
+            <TextBlock Text="Время начала:"  VerticalAlignment="Center" />
+                <Separator Width="10" Height="0"/>
+                <TextBox Name="StartTimeTb" TextWrapping="Wrap" Width="100"/>
+                <Separator Width="50" Height="0"/>
+                <TextBlock Text="Время окончания:"  VerticalAlignment="Center" />
+                <Separator Width="10" Height="0"/>
+                <TextBox Name="EndTimeTb" TextWrapping="Wrap" Width="100"/>
+            </StackPanel>
+
+
+            <TextBlock Text="Дата:" TextWrapping="Wrap" Grid.Row="6" />
+            <DatePicker Name="DateDp" Grid.Row="6" Width="200" HorizontalAlignment="Left" Grid.Column="2"/>
+
+            
+            <Button Content="Добавить" Grid.Row="8" Grid.Column="2" Height="50" Width="150" 
+       HorizontalAlignment="Right" Name="AddRecordBtn" Click="AddRecordBtn_Click_1"/>
+        </Grid>
+    </Grid>
+</Window>
