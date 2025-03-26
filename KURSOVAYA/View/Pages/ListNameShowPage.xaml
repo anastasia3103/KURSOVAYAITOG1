@@ -68,16 +68,12 @@
                                 <RowDefinition Height="auto"/>
                             </Grid.RowDefinitions>
 
-                            <Image Source="{Binding NameShow.Photo}" Stretch="UniformToFill" 
+                            <Image Source="{Binding Photo}" Stretch="UniformToFill" 
                                Height="160" Width="150"/>
 
-                            <TextBlock Text="{Binding NameShow.Title}" FontWeight="Black" 
+                            <TextBlock Text="{Binding Title}" FontWeight="Black" 
                                    HorizontalAlignment="Center" FontSize="16" Grid.Row="2"/>
-                            <TextBlock Text="{Binding Date, StringFormat={}{0:dd.MM.yyy}}" 
-                                   HorizontalAlignment="Left" FontSize="16" Grid.Row="4" />
-                            <TextBlock Text="{Binding StartTime, StringFormat=hh\\:mm}" 
-                                   HorizontalAlignment="Right" FontSize="16" Grid.Row="4" />
-                            <TextBlock Text="{Binding NameShow.AgeLimit.Ttitle}" 
+                            <TextBlock Text="{Binding AgeLimit.Ttitle}" 
                                    HorizontalAlignment="Right" FontSize="16" Foreground="Red" Grid.Row="6" />
                             
                         </Grid>

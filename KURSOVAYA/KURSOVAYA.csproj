@@ -302,7 +302,6 @@
     <Resource Include="Resource\SHOW2.jpg" />
     <Resource Include="Resource\SHOW4.jpg" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="Model\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
