@@ -1,4 +1,5 @@
 ﻿using KURSOVAYA.AppData;
+using KURSOVAYA.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,7 @@ namespace KURSOVAYA.View.Pages
     /// </summary>
     public partial class ProfilePage : Page
     {
+        private List<Show> show = App.context.Show.OrderByDescending(s => s.Date).ToList();
         public ProfilePage()
         {
             InitializeComponent();
@@ -28,6 +30,13 @@ namespace KURSOVAYA.View.Pages
             AboutMeGrid.DataContext = App.context.User.ToList();
 
             PersonalDataGrid.DataContext = App.context.Profile.ToList();
+
+            ShowLv.ItemsSource = show;
+
+
+            //RatingCmb.Items.Add("С оплатой");
+            //RatingCmb.Items.Add("Без оплаты");
+
         }
 
         private void ExitBtn_Click(object sender, RoutedEventArgs e)
@@ -49,6 +58,11 @@ namespace KURSOVAYA.View.Pages
             App.context.SaveChanges();
 
             MessageBoxHelper.Information("Информация успешно изменена!");
+        }
+
+        private void ShowLv_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

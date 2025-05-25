@@ -46,16 +46,17 @@ namespace KURSOVAYA.View.Pages
         private void FilterCmb_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             NameShow nameShow = FilterCmb.SelectedItem as NameShow;
+
             if (FilterCmb.SelectedIndex != 0)
             {
-                OrderLv.ItemsSource = App.context.NameShow.ToList().Where
-                    (x => x.Id == nameShow.Id);
+                OrderLv.ItemsSource = record.Where(x => x.Show.NameShow.Id == nameShow.Id);
 
             }
             else
             {
                 OrderLv.ItemsSource = record;
             }
+
         }
     }
 }

@@ -5,12 +5,12 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:KURSOVAYA.View.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="720" d:DesignWidth="1280"
+      d:DesignHeight="720" d:DesignWidth="1560"
       Title="AdminCatalogPage">
 
     <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
+            <RowDefinition Height="auto" />
             <RowDefinition Height="10" />
             <RowDefinition Height="50" />
             <RowDefinition Height="10" />
@@ -18,22 +18,41 @@
         </Grid.RowDefinitions>
 
         <Grid>
+            <Grid.RowDefinitions   >
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="50" />
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="300" />
                 <ColumnDefinition Width="30" />
-                <ColumnDefinition Width="280" />
-                <ColumnDefinition Width="40" />
-                <ColumnDefinition Width="200" />
-                <ColumnDefinition Width="230" />
-                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="30" />
+                <ColumnDefinition Width="300" />
+                <ColumnDefinition Width="30" />
+                <ColumnDefinition Width="300" />
+                <ColumnDefinition Width="30" />
+                <ColumnDefinition Width="300" />
             </Grid.ColumnDefinitions>
 
-            <ComboBox Name="FilterCmb" SelectionChanged="FilterCmb_SelectionChanged"/>
-            <TextBox Name="SearchTb" Grid.Column="2"/>
-            <Button Name="SearchBtn" Content="Найти" Margin="5" Click="SearchBtn_Click" Grid.Column="4"/>
+            <TextBlock Text="Поиск по названию" FontSize="30"/>
+            <TextBlock Text="По возрасту" Grid.Column="4" FontSize="30" />
+            <TextBlock Text="По категории" Grid.Column="6" FontSize="30" />
+            <TextBlock Text="По дате" Grid.Column="8" FontSize="30" />
 
+            <TextBox Grid.Row="1" Name="SearchTb"/>
+            <Button Content="Найти"  Name="SearchBtn" Grid.Column="2" Grid.Row="1" Click="SearchBtn_Click_1" />
+            <ComboBox Grid.Column="4"   Name="FilterAgeCmb" Grid.Row="1" Width="300"
+      Height="50" HorizontalAlignment="left" 
+              SelectionChanged="FilterAgeCmb_SelectionChanged"/>
+            <ComboBox Grid.Column="6"   Name="FilterCategoryCmb" Grid.Row="1" Width="300"
+      Height="50" HorizontalAlignment="left" 
+              SelectionChanged="FilterCategoryCmb_SelectionChanged"/>
+            <DatePicker Grid.Column="8"   Name="DateDP" Grid.Row="1" Width="300"
+      Height="50" HorizontalAlignment="left" 
+              />
 
         </Grid>
+
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200" />
@@ -46,8 +65,10 @@
                 Content="Добавить запись"/>
             <Button Name="DeleteShowBtn" Click="DeleteShowBtn_Click"  Content="Удалить" Grid.Column="2"/>
         </Grid>
+
         <ListBox Grid.Row="4" Name="ShowLv"
-             ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+        SelectionChanged="ShowLv_SelectionChanged" >
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel />
@@ -57,32 +78,42 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Border BorderThickness="1" BorderBrush="Gray" CornerRadius="20"
-                        Padding="20" Width="210" Margin="10">
+            Padding="15" Width="340" Margin="10">
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="1*"/>
-                                <RowDefinition Height="10"/>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="5"/>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="3"/>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="3"/>
-                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="160" />
+                                <RowDefinition Height="10" />
+                                <RowDefinition Height="1*" />
                             </Grid.RowDefinitions>
-                            <Image Source="{Binding NameShow.Photo}" Stretch="UniformToFill" 
-                               Height="160" Width="150"/>
+                            <Grid>
+                                <Grid.Background>
+                                    <ImageBrush ImageSource="{Binding NameShow.Photo}" Stretch="UniformToFill"/>
+                                </Grid.Background>
+                                <StackPanel  Orientation="Horizontal" VerticalAlignment="Top" Margin="10">
+                                    <TextBlock Text="{Binding NameShow.IsPayout}" 
+                            FontSize="16" Foreground="White" HorizontalAlignment="Left"
+                                       Background="#60FF0000" Padding="10" FontWeight="Black"/>
+                                    <Separator Height="0" Width="50" />
+                                    <TextBlock Text="{Binding NameShow.AgeLimit.Ttitle}" HorizontalAlignment="Right"
+                            FontSize="16" Foreground="Red" FontWeight="Black" Grid.Row="6" />
+                                </StackPanel>
+                            </Grid>
+                            <Grid Grid.Row="2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="5"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
 
-                            <TextBlock Text="{Binding NameShow.Title}" FontWeight="Black" 
-                                   HorizontalAlignment="Center" FontSize="16" Grid.Row="2"/>
-                            <TextBlock Text="{Binding Date, StringFormat={}{0:dd.MM.yyy}}" 
-                                   HorizontalAlignment="Left" FontSize="16" Grid.Row="4" />
-                            <TextBlock Text="{Binding StartTime, StringFormat=hh\\:mm}" 
-                                   HorizontalAlignment="Right" FontSize="16" Grid.Row="4" />
-                            <TextBlock Text="{Binding NameShow.AgeLimit.Ttitle}" 
-                                   HorizontalAlignment="Right" FontSize="16" Foreground="Red" Grid.Row="6" />
-                            <Button Name="MoreInformationBtn" Click="MoreInformationBtn_Click"  Grid.Row="8" Content="Подробнее" FontSize="16"/>
+                                <TextBlock Text="{Binding NameShow.Title}" FontWeight="Black"
+HorizontalAlignment="Left" FontSize="24"/>
+                                <TextBlock Text="{Binding Date, StringFormat={}{0:dd.MM.yyy}}" 
+HorizontalAlignment="Left" FontSize="16" Grid.Row="2" />
+                                <TextBlock Text="{Binding StartTime, StringFormat=hh\\:mm}" 
+HorizontalAlignment="Right" FontSize="16" Grid.Row="2" />
+                            </Grid>
                         </Grid>
+
                     </Border>
                 </DataTemplate>
             </ListBox.ItemTemplate>

@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KURSOVAYA.View.Windows"
         mc:Ignorable="d"
-        Title="AdminMainWindow" MinHeight="820" MinWidth="1280"
-        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="AdminMainWindow" MinHeight="820" MinWidth="1560"
+        WindowStartupLocation="CenterScreen">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="100" />
@@ -24,7 +24,7 @@
             <Image Source="/Resource/MYLOGO.png" />
 
 
-            <StackPanel Grid.Column="2" Orientation="Horizontal">
+            <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
 
                 <Button FontFamily="Myanmar Text" Style="{DynamicResource MenuBtn}" VerticalAlignment="Top" 
                    FontWeight="DemiBold" Width="160" Name="OrderBtn"

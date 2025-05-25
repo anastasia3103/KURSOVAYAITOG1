@@ -2,52 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Style TargetType="ComboBox">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="ComboBox">
-                    <Grid>
-                        <!-- Основной круглый фон -->
-                        <Ellipse x:Name="BackgroundEllipse" 
-                                     Fill="{TemplateBinding Background}" 
-                                     Stroke="{TemplateBinding BorderBrush}" 
-                                     StrokeThickness="{TemplateBinding BorderThickness}"/>
 
-                        <!-- Текст выбранного элемента -->
-                        <ContentPresenter x:Name="ContentSite"
-                                              VerticalAlignment="Center"
-                                              HorizontalAlignment="Center"
-                                              Content="{TemplateBinding SelectionBoxItem}"
-                                              ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
-                                              Margin="10,0,10,0"/>
-
-                        <!-- Кнопка раскрытия списка -->
-                        <ToggleButton x:Name="ToggleButton"
-                                          Grid.Column="1"
-                                          Focusable="False"
-                                          IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                          ClickMode="Press">
-                        </ToggleButton>
-
-                        <!-- Выпадающий список -->
-                        <Popup x:Name="Popup"
-                                    Placement="Bottom"
-                                    IsOpen="{TemplateBinding IsDropDownOpen}"
-                                    AllowsTransparency="True"
-                                    Focusable="False"
-                                    PopupAnimation="Slide">
-                            <Border x:Name="DropDownBorder"
-                                        Background="{TemplateBinding Background}"
-                                        BorderBrush="{TemplateBinding BorderBrush}"
-                                        BorderThickness="{TemplateBinding BorderThickness}"
-                                        CornerRadius="10">
-                                <ScrollViewer Margin="4,6,4,6">
-                                    <ItemsPresenter />
-                                </ScrollViewer>
-                            </Border>
-                        </Popup>
-                    </Grid>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
     </Style>
 </ResourceDictionary>

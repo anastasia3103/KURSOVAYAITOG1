@@ -4,21 +4,26 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="bf752dad413047028cc54b69de9b8a2e" Name="Diagram1">
-        <EntityTypeShape EntityType="kursovayaModel.AgeLimit" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="kursovayaModel.NameShow" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="kursovayaModel.Profile" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="kursovayaModel.Record" Width="1.5" PointX="7.5" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="kursovayaModel.Role" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="kursovayaModel.Show" Width="1.5" PointX="5.25" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="kursovayaModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
+      <Diagram DiagramId="1143863c1ab94b8dbd66518de3498792" Name="Diagram1">
+        <EntityTypeShape EntityType="kursovayaModel.AgeLimit" Width="1.5" PointX="0.75" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="kursovayaModel.CategoryShow" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="kursovayaModel.Gender" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="kursovayaModel.NameShow" Width="1.5" PointX="3" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="kursovayaModel.Profile" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="kursovayaModel.Record" Width="1.5" PointX="7.5" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="kursovayaModel.Role" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="kursovayaModel.Show" Width="1.5" PointX="5.25" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="kursovayaModel.StatusShow" Width="1.5" PointX="3" PointY="13" IsExpanded="true" />
         <EntityTypeShape EntityType="kursovayaModel.User" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="kursovayaModel.FK_NameShow_AgeLimit" ManuallyRouted="false" />
+        <AssociationConnector Association="kursovayaModel.FK_NameShow_CategoryShow" ManuallyRouted="false" />
+        <AssociationConnector Association="kursovayaModel.FK_User_Gender" ManuallyRouted="false" />
         <AssociationConnector Association="kursovayaModel.FK_Show_NameShow" ManuallyRouted="false" />
         <AssociationConnector Association="kursovayaModel.FK_Profile_Role" ManuallyRouted="false" />
         <AssociationConnector Association="kursovayaModel.FK_User_Profile" ManuallyRouted="false" />
         <AssociationConnector Association="kursovayaModel.FK_Record_Show" ManuallyRouted="false" />
         <AssociationConnector Association="kursovayaModel.FK_Record_User" ManuallyRouted="false" />
+        <AssociationConnector Association="kursovayaModel.FK_Show_StatusShow" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

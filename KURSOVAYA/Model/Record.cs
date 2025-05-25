@@ -17,6 +17,7 @@ namespace KURSOVAYA.Model
         public int Id { get; set; }
         public int UserID { get; set; }
         public int ShowID { get; set; }
+        public Nullable<int> Rating { get; set; }
     
         public virtual Show Show { get; set; }
         public virtual User User { get; set; }

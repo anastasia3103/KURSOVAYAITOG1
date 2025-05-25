@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:KURSOVAYA.View.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="720" d:DesignWidth="1280"
+      d:DesignHeight="720" d:DesignWidth="1560"
       Title="OrderListPage">
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -14,6 +14,8 @@
             <RowDefinition Height="100" />
             <RowDefinition Height="10" />
             <RowDefinition Height="1*" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
         <TextBlock Text="Все записи на шоу" FontSize="40" FontWeight="Bold" HorizontalAlignment="Center"/>
@@ -37,7 +39,7 @@
         </Grid>
 
         <Grid Grid.Row="4">
-            
+
             <ListView Name="OrderLv" SelectionChanged="OrderLv_SelectionChanged">
                 <ListView.View>
                     <GridView>
@@ -53,13 +55,11 @@
                             </GridViewColumn.DisplayMemberBinding>
                         </GridViewColumn>
                         <GridViewColumn Header="Почта зрителя" Width="300" DisplayMemberBinding="{Binding User.Email}"/>
+                        <GridViewColumn Header="Актуальность" Width="300" DisplayMemberBinding="{Binding Show.StatusShow.Title}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
-
-
-                
-
         </Grid>
+        <TextBlock Grid.Row="6" Text="{Binding ElementName=OrderLv, Path=Items.Count}" />
     </Grid>
 </Page>

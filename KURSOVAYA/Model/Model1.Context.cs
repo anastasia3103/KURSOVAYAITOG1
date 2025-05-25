@@ -26,12 +26,14 @@ namespace KURSOVAYA.Model
         }
     
         public virtual DbSet<AgeLimit> AgeLimit { get; set; }
+        public virtual DbSet<CategoryShow> CategoryShow { get; set; }
+        public virtual DbSet<Gender> Gender { get; set; }
         public virtual DbSet<NameShow> NameShow { get; set; }
         public virtual DbSet<Profile> Profile { get; set; }
         public virtual DbSet<Record> Record { get; set; }
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<Show> Show { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<StatusShow> StatusShow { get; set; }
         public virtual DbSet<User> User { get; set; }
     }
 }

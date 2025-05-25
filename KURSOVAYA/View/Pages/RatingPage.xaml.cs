@@ -16,23 +16,13 @@ using System.Windows.Shapes;
 namespace KURSOVAYA.View.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для RecordInformationPage.xaml
+    /// Логика взаимодействия для RatingPage.xaml
     /// </summary>
-    public partial class RecordInformationPage : Page
+    public partial class RatingPage : Page
     {
-        public RecordInformationPage()
+        public RatingPage()
         {
             InitializeComponent();
-        }
-
-        private void BackBtn_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void RemoveRecordBtn_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

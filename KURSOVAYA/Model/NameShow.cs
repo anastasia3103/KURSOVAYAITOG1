@@ -25,8 +25,12 @@ namespace KURSOVAYA.Model
         public string Discription { get; set; }
         public int AgeLimitID { get; set; }
         public string Photo { get; set; }
+        public int CategoryShowID { get; set; }
+        public string Address { get; set; }
+        public bool IsPayout { get; set; }
     
         public virtual AgeLimit AgeLimit { get; set; }
+        public virtual CategoryShow CategoryShow { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Show> Show { get; set; }
     }

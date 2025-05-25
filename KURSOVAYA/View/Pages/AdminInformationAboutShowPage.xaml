@@ -36,7 +36,7 @@
 
             <Image Stretch="Fill" Source="{Binding NameShow.Photo}"/>
 
-            <TextBox  Name="TitleTb" Text="{Binding NameShow.Title}" Grid.Column="2"
+            <TextBox  Name="TitleTb"  Text="{Binding NameShow.Title}" Grid.Column="2"
                    FontSize="30" HorizontalAlignment="Left"
                    VerticalAlignment="Top"
                    FontWeight="Black" Grid.ColumnSpan="3"/>
@@ -45,30 +45,59 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50" />
                     <RowDefinition Height="auto" />
-                    <RowDefinition Height="20" />
+                    <RowDefinition Height="15" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="10" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="10" />
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
 
-
-                <TextBox Name="DiscriptionTb" Grid.Row="1" TextWrapping="Wrap" TextAlignment="Justify"
-                     Text="{Binding NameShow.Discription}" VerticalAlignment="Top"
-                     FontSize="30"  FontWeight="UltraLight"
-                    />
+                <TextBox Name="DiscriptionCmb"  Grid.Row="1" TextWrapping="Wrap" TextAlignment="Justify"
+                 Text="{Binding NameShow.Discription}" VerticalAlignment="Top"
+                 FontSize="30" FontWeight="UltraLight"
+                />
+                
 
                 <StackPanel Orientation="Horizontal" Grid.Row="3" >
-                    <TextBlock Text="Дата проведения: " FontWeight="UltraLight"  FontSize="30"/>
-                    <TextBox Name="DateTb" Text="{Binding Date, StringFormat=dd.MM.yyy}" FontSize="30"  FontWeight="UltraLight" />
+                    <TextBlock Text="Категория: "  FontWeight="UltraLight"  FontSize="30"/>
+                    <ComboBox  Grid.Row="7" FontWeight="UltraLight"  Name="CategoryCmb" 
+                               SelectionChanged="CategoryCmb_SelectionChanged"
+                               Text="{Binding NameShow.CategoryShow.Title}" 
+                                FontSize="30" />
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal" Grid.Row="5">
-                    <TextBlock  Text="Время проведения: " FontWeight="UltraLight"  FontSize="30"/>
-                    <TextBox Name="StartTimeTb" Text="{Binding StartTime, StringFormat=hh\\:mm}" FontWeight="UltraLight"
-                       FontSize="30"/>
+                <StackPanel Orientation="Horizontal" Grid.Row="5" >
+                    <TextBlock Text="Дата проведения: "  FontWeight="UltraLight"  FontSize="30"/>
+                    <DatePicker Text="{Binding Date, StringFormat=dd.MM.yyy}" 
+                                FontWeight="UltraLight" FontSize="30"   />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="7">
+                    <TextBlock Text="Время проведения: "  FontWeight="UltraLight" FontSize="30"/>
+                    <TextBox FontWeight="UltraLight" Name="StartDateTb" Text="{Binding StartTime, StringFormat=hh\\:mm}" 
+                   FontSize="30"/>
                     <TextBlock Text="-" FontSize="30"/>
-                    <TextBox Name="EndTimeTb" Text="{Binding EndTime, StringFormat=hh\\:mm}" 
-                       FontSize="30" FontWeight="UltraLight"/>
+                    <TextBox FontWeight="UltraLight" Name="EndDateTb" Text="{Binding EndTime, StringFormat=hh\\:mm}" 
+                   FontSize="30" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="9" >
+                    <TextBlock Text="Оплата: "  FontWeight="UltraLight"  FontSize="30"/>
+                    <ComboBox Name="PayoutCmb" FontWeight="UltraLight"  Text="{Binding NameShow.IsPayout}" 
+             FontSize="30" />
+                </StackPanel>
+
+
+                <StackPanel Orientation="Horizontal" Grid.Row="11" >
+                    <TextBlock Text="Адрес: "  FontWeight="UltraLight"  FontSize="30"/>
+
+                    <TextBox FontWeight="UltraLight" Text="{Binding NameShow.Address}" 
+                    FontSize="30" Name="AddressCmb"/>
                 </StackPanel>
 
             </Grid>

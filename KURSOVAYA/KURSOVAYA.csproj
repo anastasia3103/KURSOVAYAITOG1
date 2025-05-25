@@ -68,6 +68,12 @@
     <Compile Include="Model\AgeLimit.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\CategoryShow.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Gender.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -98,7 +104,7 @@
     <Compile Include="Model\Show.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\sysdiagrams.cs">
+    <Compile Include="Model\StatusShow.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\User.cs">
@@ -128,8 +134,8 @@
     <Compile Include="View\Pages\ProfilePage.xaml.cs">
       <DependentUpon>ProfilePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Pages\RecordInformationPage.xaml.cs">
-      <DependentUpon>RecordInformationPage.xaml</DependentUpon>
+    <Compile Include="View\Pages\RatingPage.xaml.cs">
+      <DependentUpon>RatingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Pages\RecordInformationShowPage.xaml.cs">
       <DependentUpon>RecordInformationShowPage.xaml</DependentUpon>
@@ -197,7 +203,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Pages\RecordInformationPage.xaml">
+    <Page Include="View\Pages\RatingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -35,5 +35,10 @@ namespace KURSOVAYA.View.Pages
             App.context.SaveChanges();
             MessageBoxHelper.Information("Информация о записи успешно изменена!");
         }
+
+        private void CategoryCmb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

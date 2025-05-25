@@ -12,6 +12,20 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Ttitle" Type="nvarchar" MaxLength="5" Nullable="false" />
         </EntityType>
+        <EntityType Name="CategoryShow">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Gender">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
         <EntityType Name="NameShow">
           <Key>
             <PropertyRef Name="Id" />
@@ -21,6 +35,9 @@
           <Property Name="Discription" Type="nvarchar(max)" Nullable="false" />
           <Property Name="AgeLimitID" Type="int" Nullable="false" />
           <Property Name="Photo" Type="nvarchar(max)" />
+          <Property Name="CategoryShowID" Type="int" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="IsPayout" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Profile">
           <Key>
@@ -38,6 +55,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="ShowID" Type="int" Nullable="false" />
+          <Property Name="Rating" Type="int" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -55,16 +73,15 @@
           <Property Name="Date" Type="date" Nullable="false" />
           <Property Name="StartTime" Type="time" Precision="7" Nullable="false" />
           <Property Name="EndTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="StatusId" Type="int" Nullable="false" />
+          <Property Name="QtyPersons" Type="int" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
+        <EntityType Name="StatusShow">
           <Key>
-            <PropertyRef Name="diagram_id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="30" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -78,6 +95,7 @@
           <Property Name="NumberPhone" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ProfileID" Type="int" Nullable="false" />
+          <Property Name="GenderID" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_NameShow_AgeLimit">
           <End Role="AgeLimit" Type="Self.AgeLimit" Multiplicity="1" />
@@ -88,6 +106,18 @@
             </Principal>
             <Dependent Role="NameShow">
               <PropertyRef Name="AgeLimitID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NameShow_CategoryShow">
+          <End Role="CategoryShow" Type="Self.CategoryShow" Multiplicity="1" />
+          <End Role="NameShow" Type="Self.NameShow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoryShow">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="NameShow">
+              <PropertyRef Name="CategoryShowID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -139,6 +169,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Show_StatusShow">
+          <End Role="StatusShow" Type="Self.StatusShow" Multiplicity="1" />
+          <End Role="Show" Type="Self.Show" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusShow">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Show">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Gender">
+          <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gender">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="GenderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_User_Profile">
           <End Role="Profile" Type="Self.Profile" Multiplicity="1" />
           <End Role="User" Type="Self.User" Multiplicity="*" />
@@ -153,15 +207,21 @@
         </Association>
         <EntityContainer Name="Хранилище kursovayaModelContainer">
           <EntitySet Name="AgeLimit" EntityType="Self.AgeLimit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CategoryShow" EntityType="Self.CategoryShow" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Gender" EntityType="Self.Gender" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NameShow" EntityType="Self.NameShow" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Profile" EntityType="Self.Profile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Record" EntityType="Self.Record" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Show" EntityType="Self.Show" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StatusShow" EntityType="Self.StatusShow" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_NameShow_AgeLimit" Association="Self.FK_NameShow_AgeLimit">
             <End Role="AgeLimit" EntitySet="AgeLimit" />
+            <End Role="NameShow" EntitySet="NameShow" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NameShow_CategoryShow" Association="Self.FK_NameShow_CategoryShow">
+            <End Role="CategoryShow" EntitySet="CategoryShow" />
             <End Role="NameShow" EntitySet="NameShow" />
           </AssociationSet>
           <AssociationSet Name="FK_Profile_Role" Association="Self.FK_Profile_Role">
@@ -179,6 +239,14 @@
           <AssociationSet Name="FK_Show_NameShow" Association="Self.FK_Show_NameShow">
             <End Role="NameShow" EntitySet="NameShow" />
             <End Role="Show" EntitySet="Show" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Show_StatusShow" Association="Self.FK_Show_StatusShow">
+            <End Role="StatusShow" EntitySet="StatusShow" />
+            <End Role="Show" EntitySet="Show" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Gender" Association="Self.FK_User_Gender">
+            <End Role="Gender" EntitySet="Gender" />
+            <End Role="User" EntitySet="User" />
           </AssociationSet>
           <AssociationSet Name="FK_User_Profile" Association="Self.FK_User_Profile">
             <End Role="Profile" EntitySet="Profile" />
@@ -198,6 +266,22 @@
           <Property Name="Ttitle" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="NameShow" Relationship="Self.FK_NameShow_AgeLimit" FromRole="AgeLimit" ToRole="NameShow" />
         </EntityType>
+        <EntityType Name="CategoryShow">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="NameShow" Relationship="Self.FK_NameShow_CategoryShow" FromRole="CategoryShow" ToRole="NameShow" />
+        </EntityType>
+        <EntityType Name="Gender">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_User_Gender" FromRole="Gender" ToRole="User" />
+        </EntityType>
         <EntityType Name="NameShow">
           <Key>
             <PropertyRef Name="Id" />
@@ -207,7 +291,11 @@
           <Property Name="Discription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="AgeLimitID" Type="Int32" Nullable="false" />
           <Property Name="Photo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CategoryShowID" Type="Int32" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsPayout" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="AgeLimit" Relationship="Self.FK_NameShow_AgeLimit" FromRole="NameShow" ToRole="AgeLimit" />
+          <NavigationProperty Name="CategoryShow" Relationship="Self.FK_NameShow_CategoryShow" FromRole="NameShow" ToRole="CategoryShow" />
           <NavigationProperty Name="Show" Relationship="Self.FK_Show_NameShow" FromRole="NameShow" ToRole="Show" />
         </EntityType>
         <EntityType Name="Profile">
@@ -228,6 +316,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
           <Property Name="ShowID" Type="Int32" Nullable="false" />
+          <Property Name="Rating" Type="Int32" />
           <NavigationProperty Name="Show" Relationship="Self.FK_Record_Show" FromRole="Record" ToRole="Show" />
           <NavigationProperty Name="User" Relationship="Self.FK_Record_User" FromRole="Record" ToRole="User" />
         </EntityType>
@@ -248,18 +337,19 @@
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="StartTime" Type="Time" Nullable="false" Precision="7" />
           <Property Name="EndTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="StatusId" Type="Int32" Nullable="false" />
+          <Property Name="QtyPersons" Type="Int32" />
           <NavigationProperty Name="NameShow" Relationship="Self.FK_Show_NameShow" FromRole="Show" ToRole="NameShow" />
           <NavigationProperty Name="Record" Relationship="Self.FK_Record_Show" FromRole="Show" ToRole="Record" />
+          <NavigationProperty Name="StatusShow" Relationship="Self.FK_Show_StatusShow" FromRole="Show" ToRole="StatusShow" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
+        <EntityType Name="StatusShow">
           <Key>
-            <PropertyRef Name="diagram_id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Show" Relationship="Self.FK_Show_StatusShow" FromRole="StatusShow" ToRole="Show" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -273,6 +363,8 @@
           <Property Name="NumberPhone" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ProfileID" Type="Int32" Nullable="false" />
+          <Property Name="GenderID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Gender" Relationship="Self.FK_User_Gender" FromRole="User" ToRole="Gender" />
           <NavigationProperty Name="Profile" Relationship="Self.FK_User_Profile" FromRole="User" ToRole="Profile" />
           <NavigationProperty Name="Record" Relationship="Self.FK_Record_User" FromRole="User" ToRole="Record" />
         </EntityType>
@@ -285,6 +377,30 @@
             </Principal>
             <Dependent Role="NameShow">
               <PropertyRef Name="AgeLimitID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NameShow_CategoryShow">
+          <End Role="CategoryShow" Type="Self.CategoryShow" Multiplicity="1" />
+          <End Role="NameShow" Type="Self.NameShow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoryShow">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="NameShow">
+              <PropertyRef Name="CategoryShowID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Gender">
+          <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gender">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="GenderID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -348,18 +464,40 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Show_StatusShow">
+          <End Role="StatusShow" Type="Self.StatusShow" Multiplicity="1" />
+          <End Role="Show" Type="Self.Show" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusShow">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Show">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="kursovayaEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AgeLimit" EntityType="Self.AgeLimit" />
+          <EntitySet Name="CategoryShow" EntityType="Self.CategoryShow" />
+          <EntitySet Name="Gender" EntityType="Self.Gender" />
           <EntitySet Name="NameShow" EntityType="Self.NameShow" />
           <EntitySet Name="Profile" EntityType="Self.Profile" />
           <EntitySet Name="Record" EntityType="Self.Record" />
           <EntitySet Name="Role" EntityType="Self.Role" />
           <EntitySet Name="Show" EntityType="Self.Show" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="StatusShow" EntityType="Self.StatusShow" />
           <EntitySet Name="User" EntityType="Self.User" />
           <AssociationSet Name="FK_NameShow_AgeLimit" Association="Self.FK_NameShow_AgeLimit">
             <End Role="AgeLimit" EntitySet="AgeLimit" />
             <End Role="NameShow" EntitySet="NameShow" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NameShow_CategoryShow" Association="Self.FK_NameShow_CategoryShow">
+            <End Role="CategoryShow" EntitySet="CategoryShow" />
+            <End Role="NameShow" EntitySet="NameShow" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Gender" Association="Self.FK_User_Gender">
+            <End Role="Gender" EntitySet="Gender" />
+            <End Role="User" EntitySet="User" />
           </AssociationSet>
           <AssociationSet Name="FK_Show_NameShow" Association="Self.FK_Show_NameShow">
             <End Role="NameShow" EntitySet="NameShow" />
@@ -381,6 +519,10 @@
             <End Role="User" EntitySet="User" />
             <End Role="Record" EntitySet="Record" />
           </AssociationSet>
+          <AssociationSet Name="FK_Show_StatusShow" Association="Self.FK_Show_StatusShow">
+            <End Role="StatusShow" EntitySet="StatusShow" />
+            <End Role="Show" EntitySet="Show" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -396,6 +538,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="CategoryShow">
+            <EntityTypeMapping TypeName="kursovayaModel.CategoryShow">
+              <MappingFragment StoreEntitySet="CategoryShow">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Gender">
+            <EntityTypeMapping TypeName="kursovayaModel.Gender">
+              <MappingFragment StoreEntitySet="Gender">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="NameShow">
             <EntityTypeMapping TypeName="kursovayaModel.NameShow">
               <MappingFragment StoreEntitySet="NameShow">
@@ -404,6 +562,9 @@
                 <ScalarProperty Name="Discription" ColumnName="Discription" />
                 <ScalarProperty Name="AgeLimitID" ColumnName="AgeLimitID" />
                 <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="CategoryShowID" ColumnName="CategoryShowID" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="IsPayout" ColumnName="IsPayout" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -423,6 +584,7 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="ShowID" ColumnName="ShowID" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -442,17 +604,16 @@
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="StartTime" ColumnName="StartTime" />
                 <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="QtyPersons" ColumnName="QtyPersons" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="kursovayaModel.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
+          <EntitySetMapping Name="StatusShow">
+            <EntityTypeMapping TypeName="kursovayaModel.StatusShow">
+              <MappingFragment StoreEntitySet="StatusShow">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -467,6 +628,7 @@
                 <ScalarProperty Name="NumberPhone" ColumnName="NumberPhone" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="ProfileID" ColumnName="ProfileID" />
+                <ScalarProperty Name="GenderID" ColumnName="GenderID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

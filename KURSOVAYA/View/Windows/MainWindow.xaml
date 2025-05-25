@@ -5,58 +5,60 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KURSOVAYA"
         mc:Ignorable="d"
-        Title="Главное окно" MinHeight="820" MinWidth="1280"
-        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
-    <Grid Margin="10">
+        Title="Главное окно" MinHeight="820" MinWidth="1560"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100" />
             <RowDefinition Height="10" />
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
-        <Grid Background="#FFE2F1F6">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="300" />
-                <ColumnDefinition Width="230" />
-                <ColumnDefinition Width="1*" />
-            </Grid.ColumnDefinitions>
-            
-<Image Source="/Resource/MYLOGO.png" />
+        <Border Background="#FFE2F1F6" Padding="10 0 10 0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300" />
+                    <ColumnDefinition Width="230" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+
+                <Image Source="/Resource/MYLOGO.png" />
 
 
-            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
 
-                <Button FontFamily="Myanmar Text" Style="{DynamicResource MenuBtn}" VerticalAlignment="Top" 
+                    <Button FontFamily="Myanmar Text" Style="{DynamicResource MenuBtn}" VerticalAlignment="Top" 
                    FontWeight="DemiBold" Width="160" Name="MainBtn"
                 Content="Главная" Click="MainBtn_Click"  Height="65"/>
 
-                <Separator Height="0" Width="20"/>
+                    <Separator Height="0" Width="20"/>
 
-                <Button FontFamily="Myanmar Text" Style="{DynamicResource MenuBtn}" VerticalAlignment="Top" 
+                    <Button FontFamily="Myanmar Text" Style="{DynamicResource MenuBtn}" VerticalAlignment="Top" 
                    FontWeight="DemiBold" Width="160" Name="CatalogBtn"
                 Content="Каталог шоу" Click="CatalogBtn_Click"  Height="65"/>
 
 
-                <Separator Height="0" Width="20"/>
+                    <Separator Height="0" Width="20"/>
 
-                <Button FontFamily="Myanmar Text" Style="{DynamicResource MenuBtn}" VerticalAlignment="Top" 
+                    <Button FontFamily="Myanmar Text" Style="{DynamicResource MenuBtn}" VerticalAlignment="Top" 
    FontWeight="DemiBold" Width="165" Name="MyRecordBtn"
 Content="Мои записи" Click="MyRecordBtn_Click"  Height="65"/>
 
-                <Separator Height="0" Width="20"/>
+                    <Separator Height="0" Width="20"/>
 
-                <Button FontFamily="Myanmar Text" Style="{DynamicResource MenuBtn}" VerticalAlignment="Top" 
+                    <Button FontFamily="Myanmar Text" Style="{DynamicResource MenuBtn}" VerticalAlignment="Top" 
         FontWeight="DemiBold" Width="160" Name="ProfileBtn"
         Content="Профиль" Click="ProfileBtn_Click"  Height="65"/>
 
 
-            </StackPanel>
-
-            
-        </Grid>
+                </StackPanel>
 
 
-        <Frame Grid.Row="2" Name="MainUserFrame" NavigationUIVisibility="Hidden"/>
+            </Grid>
+        </Border>
+
+
+        <Frame Grid.Row="2" Name="MainUserFrame" NavigationUIVisibility="Hidden" Margin="10"/>
 
     </Grid>
 </Window>

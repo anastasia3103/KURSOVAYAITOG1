@@ -22,29 +22,29 @@ namespace KURSOVAYA.View.Pages
     /// </summary>
     public partial class CatalogPage : Page
     {
-        private List<Show> show = App.context.Show.ToList();
+        private List<Show> show = App.context.Show.OrderByDescending(s => s.Date).ToList();
         private List<AgeLimit> ageLimits = App.context.AgeLimit.ToList();
+        private List<CategoryShow> categoryShows = App.context.CategoryShow.ToList();
         public CatalogPage()
         {
             InitializeComponent();
 
             ShowLv.ItemsSource = show;
 
-            FilterCmb.SelectedValuePath = "Id";
-            FilterCmb.DisplayMemberPath = "Ttitle";
-            FilterCmb.ItemsSource = ageLimits;
+            FilterAgeCmb.SelectedValuePath = "Id";
+            FilterAgeCmb.DisplayMemberPath = "Ttitle";
+            FilterAgeCmb.ItemsSource = ageLimits;
+
+            FilterCategoryCmb.SelectedValuePath = "Id";
+            FilterCategoryCmb.DisplayMemberPath = "Title";
+            FilterCategoryCmb.ItemsSource = categoryShows;
 
             ageLimits.Insert(0, new AgeLimit() { Ttitle = "Все" });
+            categoryShows.Insert(0, new CategoryShow() { Title = "Все" });
         }
 
         private void MoreInformationBtn_Click(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
-            if (button == null) return;
-
-            var selectedShow = button.DataContext as Show; 
-            if (selectedShow == null) return;
-            NavigationService.Navigate(new View.Pages.InformationAboutShowPage(selectedShow));
         }
 
         private void SearchBtn_Click_1(object sender, RoutedEventArgs e)
@@ -53,10 +53,11 @@ namespace KURSOVAYA.View.Pages
                Where(a => a.NameShow.Title.Contains(ActivityTb.Text)).ToList();
         }
 
-        private void FilterCmb_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+
+        private void FilterAgeCmb_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            AgeLimit ageLimit = FilterCmb.SelectedItem as AgeLimit;
-            if (FilterCmb.SelectedIndex != 0)
+            AgeLimit ageLimit = FilterAgeCmb.SelectedItem as AgeLimit;
+            if (FilterAgeCmb.SelectedIndex != 0)
             {
                 ShowLv.ItemsSource = show.Where(x => x.NameShow.AgeLimit.Id == ageLimit.Id);
 
@@ -65,6 +66,31 @@ namespace KURSOVAYA.View.Pages
             {
                 ShowLv.ItemsSource = show;
             }
+        }
+
+        private void FilterCategoryCmb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            CategoryShow categoryShows = FilterCategoryCmb.SelectedItem as CategoryShow;
+            if (FilterCategoryCmb.SelectedIndex != 0)
+            {
+                ShowLv.ItemsSource = show.Where(x => x.NameShow.CategoryShow.Id == categoryShows.Id);
+
+            }
+            else
+            {
+                ShowLv.ItemsSource = show;
+            }
+        }
+
+        private void ShowLv_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedShow = ShowLv.SelectedItem as Show;
+
+            
+                if (selectedShow == null) return;
+                NavigationService.Navigate(new View.Pages.InformationAboutShowPage(selectedShow));
+            
         }
     }
 }

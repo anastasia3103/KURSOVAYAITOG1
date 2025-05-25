@@ -12,12 +12,18 @@ namespace KURSOVAYA.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagrams
+    public partial class CategoryShow
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public CategoryShow()
+        {
+            this.NameShow = new HashSet<NameShow>();
+        }
+    
+        public int Id { get; set; }
+        public string Title { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<NameShow> NameShow { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KURSOVAYA.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,12 +21,18 @@ namespace KURSOVAYA.View.Pages
     /// </summary>
     public partial class RecordInformationShowPage : Page
     {
+
+        private Show _selectedShow;
         public RecordInformationShowPage(object selectedShow)
         {
             InitializeComponent();
 
 
+            _selectedShow = selectedShow as Show;
+
             DataContext = selectedShow;
+
+            
         }
 
         private void BackBtn_Click(object sender, RoutedEventArgs e)

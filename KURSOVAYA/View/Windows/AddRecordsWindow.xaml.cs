@@ -39,6 +39,7 @@ namespace KURSOVAYA.View.Windows
                 Date = (DateTime)DateDp.SelectedDate,
                 StartTime = TimeSpan.Parse(StartTimeTb.Text),
                 EndTime = TimeSpan.Parse(EndTimeTb.Text),
+                QtyPersons= Convert.ToInt32(QtyTb.Text)
             };
 
 
@@ -50,6 +51,7 @@ namespace KURSOVAYA.View.Windows
             EndTimeTb.Text = "";
             StartTimeTb.Text = "";
             DateDp.Text = "";
+            QtyTb.Text = "";
 
         }
 

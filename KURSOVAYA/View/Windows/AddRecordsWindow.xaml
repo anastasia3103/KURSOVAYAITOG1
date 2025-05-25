@@ -18,6 +18,8 @@
                 <RowDefinition Height="10"/>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="10"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="10"/>
                 <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -51,9 +53,12 @@
 
             <TextBlock Text="Дата:" TextWrapping="Wrap" Grid.Row="6" />
             <DatePicker Name="DateDp" Grid.Row="6" Width="200" HorizontalAlignment="Left" Grid.Column="2"/>
+            
+            <TextBlock Text="Количество участников:" TextWrapping="Wrap" Grid.Row="8" />
+            <TextBox Name="QtyTb" Grid.Row="8" Width="300" HorizontalAlignment="Left" Grid.Column="2"/>
 
             
-            <Button Content="Добавить" Grid.Row="8" Grid.Column="2" Height="50" Width="150" 
+            <Button Content="Добавить" Grid.Row="10" Grid.Column="2" Height="50" Width="150" 
        HorizontalAlignment="Right" Name="AddRecordBtn" Click="AddRecordBtn_Click_1"/>
         </Grid>
     </Grid>

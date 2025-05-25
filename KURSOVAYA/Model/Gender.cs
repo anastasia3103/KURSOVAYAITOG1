@@ -12,25 +12,18 @@ namespace KURSOVAYA.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Show
+    public partial class Gender
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Show()
+        public Gender()
         {
-            this.Record = new HashSet<Record>();
+            this.User = new HashSet<User>();
         }
     
         public int Id { get; set; }
-        public int TitleID { get; set; }
-        public System.DateTime Date { get; set; }
-        public System.TimeSpan StartTime { get; set; }
-        public System.TimeSpan EndTime { get; set; }
-        public int StatusId { get; set; }
-        public Nullable<int> QtyPersons { get; set; }
+        public string Title { get; set; }
     
-        public virtual NameShow NameShow { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Record> Record { get; set; }
-        public virtual StatusShow StatusShow { get; set; }
+        public virtual ICollection<User> User { get; set; }
     }
 }

@@ -36,18 +36,28 @@ namespace KURSOVAYA.View.Pages
 
         private void RecordBtn_Click(object sender, RoutedEventArgs e)
         {
+            
             if (_selectedShow != null)
             {
-                Record record = new Record()
+                var existingRecord = App.context.Record.FirstOrDefault(r => r.UserID == App.currentUser.Id && r.ShowID == _selectedShow.Id);
+
+                if (existingRecord != null)
                 {
-                    UserID = App.currentUser.Id,
-                    ShowID = _selectedShow.Id
-                };
+                    MessageBoxHelper.Warning("Вы уже зарегистрированы на это шоу!");
+                }
+                else
+                {
+                    Record record = new Record()
+                    {
+                        UserID = App.currentUser.Id,
+                        ShowID = _selectedShow.Id
+                    };
 
-                App.context.Record.Add(record);
-                App.context.SaveChanges();
+                    App.context.Record.Add(record);
+                    App.context.SaveChanges();
 
-                MessageBoxHelper.Information("Вы успешно записались на шоу");
+                    MessageBoxHelper.Information("Вы успешно записались на шоу");
+                }
             }
         }
 
