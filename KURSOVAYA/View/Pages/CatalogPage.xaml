@@ -17,7 +17,7 @@
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Cписок шоу" FontSize="40" FontWeight="Bold" HorizontalAlignment="Center"/>
+        <TextBlock Text="Каталог шоу" FontSize="40" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top"/>
 
 
 

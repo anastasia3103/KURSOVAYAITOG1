@@ -24,6 +24,8 @@ namespace KURSOVAYA.View.Pages
     {
 
         private List<Show> show = App.context.Show.ToList();
+        private List<AgeLimit> ageLimits = App.context.AgeLimit.ToList();
+        private List<CategoryShow> categoryShows = App.context.CategoryShow.ToList();
         public RecordPage()
         {
             InitializeComponent();
@@ -36,12 +38,13 @@ namespace KURSOVAYA.View.Pages
             FilterCategoryCmb.DisplayMemberPath = "Title";
             FilterCategoryCmb.ItemsSource = App.context.CategoryShow.ToList();
 
-            App.context.AgeLimit.ToList().Insert(0, new AgeLimit() { Ttitle = "Все" });
-            App.context.CategoryShow.ToList().Insert(0, new CategoryShow() { Title = "Все" });
+            ageLimits.Insert(0, new AgeLimit() { Ttitle = "Все" });
+            categoryShows.Insert(0, new CategoryShow() { Title = "Все" });
 
 
             ShowLv.ItemsSource = App.context.Record.
                 Where(u => u.User.Id == App.currentUser.Id).ToList();
+
         }
 
 
@@ -83,14 +86,12 @@ namespace KURSOVAYA.View.Pages
             if (FilterCategoryCmb.SelectedIndex != 0)
             {
                 ShowLv.ItemsSource = App.context.Record.
-                Where(u => u.User.Id == App.currentUser.Id).ToList().Where(x => x.Show.NameShow.CategoryShow.Id == categoryShows.Id);
-
+                Where(u => u.User.Id == App.currentUser.Id).ToList().Where
+                (x => x.Show.NameShow.CategoryShow.Id == categoryShows.Id);
 
             }
             else
             {
-
-
                 ShowLv.ItemsSource = App.context.Record.
                     Where(u => u.User.Id == App.currentUser.Id).ToList();
             }
@@ -109,7 +110,6 @@ namespace KURSOVAYA.View.Pages
         private void ShowLv_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
             var selectedShow = ShowLv.SelectedItem as Show;
-
 
             if (selectedShow == null) return;
             NavigationService.Navigate(new View.Pages.RecordInformationShowPage(selectedShow));

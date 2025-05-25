@@ -106,5 +106,8 @@
         <Button Name="EditBtn" Grid.Row="4" Height="40" Width="200"
         HorizontalAlignment="Right" Content="Изменить" Click="EditBtn_Click"
         Grid.ColumnSpan="2" Margin="0 0 10 0"/>
+        <Button Name="CancellationBtn" Grid.Row="4" Height="40" Width="200"
+        HorizontalAlignment="Left" Content="Отменить" Click="EditBtn_Click"
+        Grid.ColumnSpan="2" Margin="0 0 10 0"/>
     </Grid>
 </Page>

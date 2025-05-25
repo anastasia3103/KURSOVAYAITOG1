@@ -86,8 +86,11 @@
                 </StackPanel>
             </Grid>
         </Grid>
-        <TextBlock  Grid.Row="4" FontWeight="UltraLight" Text="{Binding NameShow.Address}" 
-        FontSize="30" />
+        <StackPanel Orientation="Horizontal" Grid.Row="4">
+            <TextBlock Text="Адрес: " FontSize="30"/>
+            <TextBlock  FontWeight="UltraLight" Text="{Binding NameShow.Address}" FontSize="30" />
+        </StackPanel> 
+        
 
         <Button Name="RecordBtn" Grid.Row="4" Height="40" Width="200"
             HorizontalAlignment="Right" Content="Записаться" Click="RecordBtn_Click"
