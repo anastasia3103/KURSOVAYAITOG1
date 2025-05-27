@@ -43,7 +43,7 @@ namespace KURSOVAYA.View.Pages
 
 
             ShowLv.ItemsSource = App.context.Record.
-                Where(u => u.User.Id == App.currentUser.Id).ToList();
+                Where(u => u.User.Id == App.currentUser.Id && u.IsArchived == false).ToList();
 
         }
 

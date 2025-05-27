@@ -28,7 +28,13 @@ namespace KURSOVAYA.Model
         public int CategoryShowID { get; set; }
         public string Address { get; set; }
         public bool IsPayout { get; set; }
-    
+    public string IsPayoutText
+        {
+            get
+            {
+                return IsPayout == true ? "С оплатой" : "Без оплаты";
+            }
+        }
         public virtual AgeLimit AgeLimit { get; set; }
         public virtual CategoryShow CategoryShow { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

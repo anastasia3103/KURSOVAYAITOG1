@@ -152,7 +152,7 @@
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <Border BorderThickness="1" BorderBrush="Gray" CornerRadius="20"
-                     Padding="15" Width="500" Margin="10">
+                     Padding="15" Width="650" Margin="10">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="150"/>

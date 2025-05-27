@@ -46,14 +46,13 @@
             <TextBox Grid.Row="1" Name="ActivityTb"/>
             <Button Content="Найти"  Name="SearchBtn" Grid.Column="2" Grid.Row="1" Click="SearchBtn_Click_1" />
             <ComboBox Grid.Column="4"   Name="FilterAgeCmb" Grid.Row="1" Width="300"
-              Height="50" HorizontalAlignment="left" 
+              Height="50" HorizontalAlignment="left" SelectedIndex="0"
                       SelectionChanged="FilterAgeCmb_SelectionChanged"/>
             <ComboBox Grid.Column="6"   Name="FilterCategoryCmb" Grid.Row="1" Width="300"
-              Height="50" HorizontalAlignment="left" 
+              Height="50" HorizontalAlignment="left" SelectedIndex="0"
                       SelectionChanged="FilterCategoryCmb_SelectionChanged"/>
             <DatePicker Grid.Column="8"   Name="DateDP" Grid.Row="1" Width="300"
-              Height="50" HorizontalAlignment="left" 
-                      />
+              Height="50" HorizontalAlignment="left" SelectedDateChanged="DateDP_SelectedDateChanged"/>
 
         </Grid>
 
@@ -81,7 +80,7 @@
                                     <ImageBrush ImageSource="{Binding NameShow.Photo}" Stretch="UniformToFill"/>
                                 </Grid.Background>
                                 <StackPanel  Orientation="Horizontal" VerticalAlignment="Top" Margin="10">
-                                    <TextBlock Text="{Binding NameShow.IsPayout}" 
+                                    <TextBlock Text="{Binding NameShow.IsPayoutText}" 
                                     FontSize="16" Foreground="White" HorizontalAlignment="Left"
                                                Background="#60FF0000" Padding="10" FontWeight="Black"/>
                                     <Separator Height="0" Width="50" />

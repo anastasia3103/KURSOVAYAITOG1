@@ -25,8 +25,8 @@ namespace KURSOVAYA.Model
         public System.DateTime Date { get; set; }
         public System.TimeSpan StartTime { get; set; }
         public System.TimeSpan EndTime { get; set; }
-        public int StatusId { get; set; }
-        public Nullable<int> QtyPersons { get; set; }
+        public int StatusID { get; set; }
+        public int QtyPersons { get; set; }
     
         public virtual NameShow NameShow { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -33,14 +33,15 @@ namespace KURSOVAYA.View.Pages
 
             FilterAgeCmb.SelectedValuePath = "Id";
             FilterAgeCmb.DisplayMemberPath = "Ttitle";
-            FilterAgeCmb.ItemsSource = ageLimits;
 
             FilterCategoryCmb.SelectedValuePath = "Id";
             FilterCategoryCmb.DisplayMemberPath = "Title";
-            FilterCategoryCmb.ItemsSource = categoryShows;
 
             ageLimits.Insert(0, new AgeLimit() { Ttitle = "Все" });
             categoryShows.Insert(0, new CategoryShow() { Title = "Все" });
+
+            FilterAgeCmb.ItemsSource = ageLimits;
+            FilterCategoryCmb.ItemsSource = categoryShows;
         }
 
         private void MoreInformationBtn_Click(object sender, RoutedEventArgs e)
@@ -49,48 +50,54 @@ namespace KURSOVAYA.View.Pages
 
         private void SearchBtn_Click_1(object sender, RoutedEventArgs e)
         {
-            ShowLv.ItemsSource = show.
-               Where(a => a.NameShow.Title.Contains(ActivityTb.Text)).ToList();
+            FilterAndSearchShow();
         }
 
 
         private void FilterAgeCmb_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            AgeLimit ageLimit = FilterAgeCmb.SelectedItem as AgeLimit;
-            if (FilterAgeCmb.SelectedIndex != 0)
-            {
-                ShowLv.ItemsSource = show.Where(x => x.NameShow.AgeLimit.Id == ageLimit.Id);
-
-            }
-            else
-            {
-                ShowLv.ItemsSource = show;
-            }
+            FilterAndSearchShow();
         }
 
         private void FilterCategoryCmb_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
-            CategoryShow categoryShows = FilterCategoryCmb.SelectedItem as CategoryShow;
-            if (FilterCategoryCmb.SelectedIndex != 0)
-            {
-                ShowLv.ItemsSource = show.Where(x => x.NameShow.CategoryShow.Id == categoryShows.Id);
-
-            }
-            else
-            {
-                ShowLv.ItemsSource = show;
-            }
+            FilterAndSearchShow();
         }
 
         private void ShowLv_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var selectedShow = ShowLv.SelectedItem as Show;
 
-            
-                if (selectedShow == null) return;
-                NavigationService.Navigate(new View.Pages.InformationAboutShowPage(selectedShow));
-            
+
+            if (selectedShow == null) return;
+            NavigationService.Navigate(new View.Pages.InformationAboutShowPage(selectedShow));
+
+        }
+
+        private void FilterAndSearchShow()
+        {
+            string search = ActivityTb.Text;
+            AgeLimit ageLimit = FilterAgeCmb.SelectedItem as AgeLimit;
+            CategoryShow categoryShow = FilterCategoryCmb.SelectedItem as CategoryShow;
+            //DateTime selectedDate = DateDP.SelectedDate == null ? DateTime.MinValue : DateDP.SelectedDate.Value;
+
+            if (ageLimit != null && categoryShow != null  /* && selectedDate != null*/ && search != null)
+            {
+
+                var filteredShow = show.Where(s => (string.IsNullOrEmpty(search) || s.NameShow.Title.ToLower().Contains(search.ToLower())) &&
+                (ageLimit.Id == 0 || s.NameShow.AgeLimitID == ageLimit.Id) &&
+                (categoryShow.Id == 0 || s.NameShow.CategoryShowID == categoryShow.Id));
+                //(string.IsNullOrEmpty(selectedDate.ToShortDateString()) ||*/ s.Date.ToShortDateString() == selectedDate.ToShortDateString()));
+
+                ShowLv.ItemsSource = filteredShow;
+            }
+
+        }
+
+        private void DateDP_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            FilterAndSearchShow();
         }
     }
 }

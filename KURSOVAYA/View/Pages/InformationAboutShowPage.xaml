@@ -52,6 +52,8 @@
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="10" />
                     <RowDefinition Height="auto" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
 
                 <TextBlock  Grid.Row="1" TextWrapping="Wrap" TextAlignment="Justify"
@@ -84,12 +86,13 @@
                     <TextBlock  Grid.Row="7" FontWeight="UltraLight" Text="{Binding NameShow.IsPayout}" 
                      FontSize="30" />
                 </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="11">
+                    <TextBlock Text="Адрес: " FontSize="30" FontWeight="UltraLight"/>
+                    <TextBlock  FontWeight="UltraLight" Text="{Binding NameShow.Address}" FontSize="30" />
+                </StackPanel>
             </Grid>
         </Grid>
-        <StackPanel Orientation="Horizontal" Grid.Row="4">
-            <TextBlock Text="Адрес: " FontSize="30"/>
-            <TextBlock  FontWeight="UltraLight" Text="{Binding NameShow.Address}" FontSize="30" />
-        </StackPanel> 
         
 
         <Button Name="RecordBtn" Grid.Row="4" Height="40" Width="200"

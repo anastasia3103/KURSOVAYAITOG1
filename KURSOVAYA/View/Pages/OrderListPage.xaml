@@ -60,6 +60,10 @@
                 </ListView.View>
             </ListView>
         </Grid>
-        <TextBlock Grid.Row="6" Text="{Binding ElementName=OrderLv, Path=Items.Count}" />
+        <StackPanel Orientation="Horizontal" Grid.Row="6">
+            <TextBlock Text="Всего записей:  "/>
+
+            <TextBlock  Text="{Binding ElementName=OrderLv, Path=Items.Count}" />
+        </StackPanel>
     </Grid>
 </Page>

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище kursovayaModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище kursovayaModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AgeLimit">
           <Key>
             <PropertyRef Name="Id" />
@@ -36,7 +36,7 @@
           <Property Name="AgeLimitID" Type="int" Nullable="false" />
           <Property Name="Photo" Type="nvarchar(max)" />
           <Property Name="CategoryShowID" Type="int" Nullable="false" />
-          <Property Name="Address" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="IsPayout" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Profile">
@@ -56,6 +56,7 @@
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="ShowID" Type="int" Nullable="false" />
           <Property Name="Rating" Type="int" />
+          <Property Name="IsArchived" Type="bit" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -73,8 +74,8 @@
           <Property Name="Date" Type="date" Nullable="false" />
           <Property Name="StartTime" Type="time" Precision="7" Nullable="false" />
           <Property Name="EndTime" Type="time" Precision="7" Nullable="false" />
-          <Property Name="StatusId" Type="int" Nullable="false" />
-          <Property Name="QtyPersons" Type="int" />
+          <Property Name="StatusID" Type="int" Nullable="false" />
+          <Property Name="QtyPersons" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="StatusShow">
           <Key>
@@ -177,7 +178,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Show">
-              <PropertyRef Name="StatusId" />
+              <PropertyRef Name="StatusID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -253,61 +254,108 @@
             <End Role="User" EntitySet="User" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="kursovayaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="kursovayaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AgeLimit" EntityType="kursovayaModel.AgeLimit" />
+          <EntitySet Name="CategoryShow" EntityType="kursovayaModel.CategoryShow" />
+          <EntitySet Name="Gender" EntityType="kursovayaModel.Gender" />
+          <EntitySet Name="NameShow" EntityType="kursovayaModel.NameShow" />
+          <EntitySet Name="Profile" EntityType="kursovayaModel.Profile" />
+          <EntitySet Name="Record" EntityType="kursovayaModel.Record" />
+          <EntitySet Name="Role" EntityType="kursovayaModel.Role" />
+          <EntitySet Name="Show" EntityType="kursovayaModel.Show" />
+          <EntitySet Name="StatusShow" EntityType="kursovayaModel.StatusShow" />
+          <EntitySet Name="User" EntityType="kursovayaModel.User" />
+          <AssociationSet Name="FK_NameShow_AgeLimit" Association="kursovayaModel.FK_NameShow_AgeLimit">
+            <End Role="AgeLimit" EntitySet="AgeLimit" />
+            <End Role="NameShow" EntitySet="NameShow" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NameShow_CategoryShow" Association="kursovayaModel.FK_NameShow_CategoryShow">
+            <End Role="CategoryShow" EntitySet="CategoryShow" />
+            <End Role="NameShow" EntitySet="NameShow" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Gender" Association="kursovayaModel.FK_User_Gender">
+            <End Role="Gender" EntitySet="Gender" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Show_NameShow" Association="kursovayaModel.FK_Show_NameShow">
+            <End Role="NameShow" EntitySet="NameShow" />
+            <End Role="Show" EntitySet="Show" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Profile_Role" Association="kursovayaModel.FK_Profile_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Profile" EntitySet="Profile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Profile" Association="kursovayaModel.FK_User_Profile">
+            <End Role="Profile" EntitySet="Profile" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Record_Show" Association="kursovayaModel.FK_Record_Show">
+            <End Role="Show" EntitySet="Show" />
+            <End Role="Record" EntitySet="Record" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Record_User" Association="kursovayaModel.FK_Record_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Record" EntitySet="Record" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Show_StatusShow" Association="kursovayaModel.FK_Show_StatusShow">
+            <End Role="StatusShow" EntitySet="StatusShow" />
+            <End Role="Show" EntitySet="Show" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="AgeLimit">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Ttitle" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="NameShow" Relationship="Self.FK_NameShow_AgeLimit" FromRole="AgeLimit" ToRole="NameShow" />
+          <Property Name="Ttitle" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="NameShow" Relationship="kursovayaModel.FK_NameShow_AgeLimit" FromRole="AgeLimit" ToRole="NameShow" />
         </EntityType>
         <EntityType Name="CategoryShow">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="NameShow" Relationship="Self.FK_NameShow_CategoryShow" FromRole="CategoryShow" ToRole="NameShow" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="NameShow" Relationship="kursovayaModel.FK_NameShow_CategoryShow" FromRole="CategoryShow" ToRole="NameShow" />
         </EntityType>
         <EntityType Name="Gender">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="Self.FK_User_Gender" FromRole="Gender" ToRole="User" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="kursovayaModel.FK_User_Gender" FromRole="Gender" ToRole="User" />
         </EntityType>
         <EntityType Name="NameShow">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Discription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Discription" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="AgeLimitID" Type="Int32" Nullable="false" />
           <Property Name="Photo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CategoryShowID" Type="Int32" Nullable="false" />
-          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="IsPayout" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="AgeLimit" Relationship="Self.FK_NameShow_AgeLimit" FromRole="NameShow" ToRole="AgeLimit" />
-          <NavigationProperty Name="CategoryShow" Relationship="Self.FK_NameShow_CategoryShow" FromRole="NameShow" ToRole="CategoryShow" />
-          <NavigationProperty Name="Show" Relationship="Self.FK_Show_NameShow" FromRole="NameShow" ToRole="Show" />
+          <NavigationProperty Name="AgeLimit" Relationship="kursovayaModel.FK_NameShow_AgeLimit" FromRole="NameShow" ToRole="AgeLimit" />
+          <NavigationProperty Name="CategoryShow" Relationship="kursovayaModel.FK_NameShow_CategoryShow" FromRole="NameShow" ToRole="CategoryShow" />
+          <NavigationProperty Name="Show" Relationship="kursovayaModel.FK_Show_NameShow" FromRole="NameShow" ToRole="Show" />
         </EntityType>
         <EntityType Name="Profile">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Login" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="RoleID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Role" Relationship="Self.FK_Profile_Role" FromRole="Profile" ToRole="Role" />
-          <NavigationProperty Name="User" Relationship="Self.FK_User_Profile" FromRole="Profile" ToRole="User" />
+          <NavigationProperty Name="Role" Relationship="kursovayaModel.FK_Profile_Role" FromRole="Profile" ToRole="Role" />
+          <NavigationProperty Name="User" Relationship="kursovayaModel.FK_User_Profile" FromRole="Profile" ToRole="User" />
         </EntityType>
         <EntityType Name="Record">
           <Key>
@@ -317,16 +365,17 @@
           <Property Name="UserID" Type="Int32" Nullable="false" />
           <Property Name="ShowID" Type="Int32" Nullable="false" />
           <Property Name="Rating" Type="Int32" />
-          <NavigationProperty Name="Show" Relationship="Self.FK_Record_Show" FromRole="Record" ToRole="Show" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Record_User" FromRole="Record" ToRole="User" />
+          <Property Name="IsArchived" Type="Boolean" />
+          <NavigationProperty Name="Show" Relationship="kursovayaModel.FK_Record_Show" FromRole="Record" ToRole="Show" />
+          <NavigationProperty Name="User" Relationship="kursovayaModel.FK_Record_User" FromRole="Record" ToRole="User" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Profile" Relationship="Self.FK_Profile_Role" FromRole="Role" ToRole="Profile" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Profile" Relationship="kursovayaModel.FK_Profile_Role" FromRole="Role" ToRole="Profile" />
         </EntityType>
         <EntityType Name="Show">
           <Key>
@@ -337,40 +386,40 @@
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="StartTime" Type="Time" Nullable="false" Precision="7" />
           <Property Name="EndTime" Type="Time" Nullable="false" Precision="7" />
-          <Property Name="StatusId" Type="Int32" Nullable="false" />
-          <Property Name="QtyPersons" Type="Int32" />
-          <NavigationProperty Name="NameShow" Relationship="Self.FK_Show_NameShow" FromRole="Show" ToRole="NameShow" />
-          <NavigationProperty Name="Record" Relationship="Self.FK_Record_Show" FromRole="Show" ToRole="Record" />
-          <NavigationProperty Name="StatusShow" Relationship="Self.FK_Show_StatusShow" FromRole="Show" ToRole="StatusShow" />
+          <Property Name="StatusID" Type="Int32" Nullable="false" />
+          <Property Name="QtyPersons" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="NameShow" Relationship="kursovayaModel.FK_Show_NameShow" FromRole="Show" ToRole="NameShow" />
+          <NavigationProperty Name="Record" Relationship="kursovayaModel.FK_Record_Show" FromRole="Show" ToRole="Record" />
+          <NavigationProperty Name="StatusShow" Relationship="kursovayaModel.FK_Show_StatusShow" FromRole="Show" ToRole="StatusShow" />
         </EntityType>
         <EntityType Name="StatusShow">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Show" Relationship="Self.FK_Show_StatusShow" FromRole="StatusShow" ToRole="Show" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Show" Relationship="kursovayaModel.FK_Show_StatusShow" FromRole="StatusShow" ToRole="Show" />
         </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Surname" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Surname" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="Middlename" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="NumberPhone" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NumberPhone" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ProfileID" Type="Int32" Nullable="false" />
           <Property Name="GenderID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Gender" Relationship="Self.FK_User_Gender" FromRole="User" ToRole="Gender" />
-          <NavigationProperty Name="Profile" Relationship="Self.FK_User_Profile" FromRole="User" ToRole="Profile" />
-          <NavigationProperty Name="Record" Relationship="Self.FK_Record_User" FromRole="User" ToRole="Record" />
+          <NavigationProperty Name="Gender" Relationship="kursovayaModel.FK_User_Gender" FromRole="User" ToRole="Gender" />
+          <NavigationProperty Name="Profile" Relationship="kursovayaModel.FK_User_Profile" FromRole="User" ToRole="Profile" />
+          <NavigationProperty Name="Record" Relationship="kursovayaModel.FK_Record_User" FromRole="User" ToRole="Record" />
         </EntityType>
         <Association Name="FK_NameShow_AgeLimit">
-          <End Role="AgeLimit" Type="Self.AgeLimit" Multiplicity="1" />
-          <End Role="NameShow" Type="Self.NameShow" Multiplicity="*" />
+          <End Type="kursovayaModel.AgeLimit" Role="AgeLimit" Multiplicity="1" />
+          <End Type="kursovayaModel.NameShow" Role="NameShow" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AgeLimit">
               <PropertyRef Name="Id" />
@@ -381,8 +430,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_NameShow_CategoryShow">
-          <End Role="CategoryShow" Type="Self.CategoryShow" Multiplicity="1" />
-          <End Role="NameShow" Type="Self.NameShow" Multiplicity="*" />
+          <End Type="kursovayaModel.CategoryShow" Role="CategoryShow" Multiplicity="1" />
+          <End Type="kursovayaModel.NameShow" Role="NameShow" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CategoryShow">
               <PropertyRef Name="Id" />
@@ -393,8 +442,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_User_Gender">
-          <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <End Type="kursovayaModel.Gender" Role="Gender" Multiplicity="1" />
+          <End Type="kursovayaModel.User" Role="User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Gender">
               <PropertyRef Name="Id" />
@@ -405,8 +454,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Show_NameShow">
-          <End Role="NameShow" Type="Self.NameShow" Multiplicity="1" />
-          <End Role="Show" Type="Self.Show" Multiplicity="*" />
+          <End Type="kursovayaModel.NameShow" Role="NameShow" Multiplicity="1" />
+          <End Type="kursovayaModel.Show" Role="Show" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="NameShow">
               <PropertyRef Name="Id" />
@@ -417,8 +466,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Profile_Role">
-          <End Role="Role" Type="Self.Role" Multiplicity="1" />
-          <End Role="Profile" Type="Self.Profile" Multiplicity="*" />
+          <End Type="kursovayaModel.Role" Role="Role" Multiplicity="1" />
+          <End Type="kursovayaModel.Profile" Role="Profile" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Role">
               <PropertyRef Name="Id" />
@@ -429,8 +478,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_User_Profile">
-          <End Role="Profile" Type="Self.Profile" Multiplicity="1" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <End Type="kursovayaModel.Profile" Role="Profile" Multiplicity="1" />
+          <End Type="kursovayaModel.User" Role="User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Profile">
               <PropertyRef Name="Id" />
@@ -441,8 +490,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Record_Show">
-          <End Role="Show" Type="Self.Show" Multiplicity="1" />
-          <End Role="Record" Type="Self.Record" Multiplicity="*" />
+          <End Type="kursovayaModel.Show" Role="Show" Multiplicity="1" />
+          <End Type="kursovayaModel.Record" Role="Record" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Show">
               <PropertyRef Name="Id" />
@@ -453,8 +502,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Record_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Record" Type="Self.Record" Multiplicity="*" />
+          <End Type="kursovayaModel.User" Role="User" Multiplicity="1" />
+          <End Type="kursovayaModel.Record" Role="Record" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="Id" />
@@ -465,65 +514,17 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Show_StatusShow">
-          <End Role="StatusShow" Type="Self.StatusShow" Multiplicity="1" />
-          <End Role="Show" Type="Self.Show" Multiplicity="*" />
+          <End Type="kursovayaModel.StatusShow" Role="StatusShow" Multiplicity="1" />
+          <End Type="kursovayaModel.Show" Role="Show" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="StatusShow">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Show">
-              <PropertyRef Name="StatusId" />
+              <PropertyRef Name="StatusID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="kursovayaEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="AgeLimit" EntityType="Self.AgeLimit" />
-          <EntitySet Name="CategoryShow" EntityType="Self.CategoryShow" />
-          <EntitySet Name="Gender" EntityType="Self.Gender" />
-          <EntitySet Name="NameShow" EntityType="Self.NameShow" />
-          <EntitySet Name="Profile" EntityType="Self.Profile" />
-          <EntitySet Name="Record" EntityType="Self.Record" />
-          <EntitySet Name="Role" EntityType="Self.Role" />
-          <EntitySet Name="Show" EntityType="Self.Show" />
-          <EntitySet Name="StatusShow" EntityType="Self.StatusShow" />
-          <EntitySet Name="User" EntityType="Self.User" />
-          <AssociationSet Name="FK_NameShow_AgeLimit" Association="Self.FK_NameShow_AgeLimit">
-            <End Role="AgeLimit" EntitySet="AgeLimit" />
-            <End Role="NameShow" EntitySet="NameShow" />
-          </AssociationSet>
-          <AssociationSet Name="FK_NameShow_CategoryShow" Association="Self.FK_NameShow_CategoryShow">
-            <End Role="CategoryShow" EntitySet="CategoryShow" />
-            <End Role="NameShow" EntitySet="NameShow" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_Gender" Association="Self.FK_User_Gender">
-            <End Role="Gender" EntitySet="Gender" />
-            <End Role="User" EntitySet="User" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Show_NameShow" Association="Self.FK_Show_NameShow">
-            <End Role="NameShow" EntitySet="NameShow" />
-            <End Role="Show" EntitySet="Show" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Profile_Role" Association="Self.FK_Profile_Role">
-            <End Role="Role" EntitySet="Role" />
-            <End Role="Profile" EntitySet="Profile" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_Profile" Association="Self.FK_User_Profile">
-            <End Role="Profile" EntitySet="Profile" />
-            <End Role="User" EntitySet="User" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Record_Show" Association="Self.FK_Record_Show">
-            <End Role="Show" EntitySet="Show" />
-            <End Role="Record" EntitySet="Record" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Record_User" Association="Self.FK_Record_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="Record" EntitySet="Record" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Show_StatusShow" Association="Self.FK_Show_StatusShow">
-            <End Role="StatusShow" EntitySet="StatusShow" />
-            <End Role="Show" EntitySet="Show" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -533,102 +534,103 @@
           <EntitySetMapping Name="AgeLimit">
             <EntityTypeMapping TypeName="kursovayaModel.AgeLimit">
               <MappingFragment StoreEntitySet="AgeLimit">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Ttitle" ColumnName="Ttitle" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CategoryShow">
             <EntityTypeMapping TypeName="kursovayaModel.CategoryShow">
               <MappingFragment StoreEntitySet="CategoryShow">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Gender">
             <EntityTypeMapping TypeName="kursovayaModel.Gender">
               <MappingFragment StoreEntitySet="Gender">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="NameShow">
             <EntityTypeMapping TypeName="kursovayaModel.NameShow">
               <MappingFragment StoreEntitySet="NameShow">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Discription" ColumnName="Discription" />
-                <ScalarProperty Name="AgeLimitID" ColumnName="AgeLimitID" />
-                <ScalarProperty Name="Photo" ColumnName="Photo" />
-                <ScalarProperty Name="CategoryShowID" ColumnName="CategoryShowID" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="IsPayout" ColumnName="IsPayout" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="CategoryShowID" ColumnName="CategoryShowID" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="AgeLimitID" ColumnName="AgeLimitID" />
+                <ScalarProperty Name="Discription" ColumnName="Discription" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Profile">
             <EntityTypeMapping TypeName="kursovayaModel.Profile">
               <MappingFragment StoreEntitySet="Profile">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Login" ColumnName="Login" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Record">
             <EntityTypeMapping TypeName="kursovayaModel.Record">
               <MappingFragment StoreEntitySet="Record">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="ShowID" ColumnName="ShowID" />
+                <ScalarProperty Name="IsArchived" ColumnName="IsArchived" />
                 <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="ShowID" ColumnName="ShowID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Role">
             <EntityTypeMapping TypeName="kursovayaModel.Role">
               <MappingFragment StoreEntitySet="Role">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Show">
             <EntityTypeMapping TypeName="kursovayaModel.Show">
               <MappingFragment StoreEntitySet="Show">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="TitleID" ColumnName="TitleID" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
-                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
                 <ScalarProperty Name="QtyPersons" ColumnName="QtyPersons" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="TitleID" ColumnName="TitleID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="StatusShow">
             <EntityTypeMapping TypeName="kursovayaModel.StatusShow">
               <MappingFragment StoreEntitySet="StatusShow">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="User">
             <EntityTypeMapping TypeName="kursovayaModel.User">
               <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Surname" ColumnName="Surname" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Middlename" ColumnName="Middlename" />
-                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
-                <ScalarProperty Name="NumberPhone" ColumnName="NumberPhone" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="ProfileID" ColumnName="ProfileID" />
                 <ScalarProperty Name="GenderID" ColumnName="GenderID" />
+                <ScalarProperty Name="ProfileID" ColumnName="ProfileID" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="NumberPhone" ColumnName="NumberPhone" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Middlename" ColumnName="Middlename" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
