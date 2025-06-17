@@ -33,8 +33,7 @@
                 <ColumnDefinition Width="10"/>
                 <ColumnDefinition Width="600"/>
             </Grid.ColumnDefinitions>
-
-
+            
             <TextBlock Text="Добавить шоу"  Grid.ColumnSpan="4" FontSize="40" 
           FontWeight="Bold" HorizontalAlignment="Center" />
 
@@ -49,8 +48,15 @@
             <ComboBox Name="AgeLimitCmb" Grid.Row="6" Grid.Column="2"/>
 
             <TextBlock Text="Обложка" Grid.Row="8"/>
-            <TextBox Name="PhotoTb" Grid.Row="8" Grid.Column="2" TextWrapping="Wrap"/>
-
+            <StackPanel Orientation="Horizontal" Grid.Row="8" Grid.Column="2" >
+                <Button Name="PhotoBtn" BorderBrush="Black" Click="PhotoBtn_Click"
+         Background="Transparent">
+                    <Image Source="/Resource/PICOL_icon_Image_add.svg.png" />
+                </Button>
+                <Separator Width="10" Height="0"/>
+                <TextBlock Name="PhotoPathTbl"/>
+            </StackPanel>
+            
             <TextBlock Text="Категория:" TextWrapping="Wrap" Grid.Row="10" />
             <ComboBox Name="CategoryCmb" Grid.Row="10" Grid.Column="2"/>
             
@@ -60,10 +66,8 @@
             <TextBlock Text="Оплата:" TextWrapping="Wrap" Grid.Row="14" />
             <ComboBox Name="PayoutCmb" Grid.Row="14" Grid.Column="2"/>
 
-
-
             <Button Content="Добавить" Grid.Row="17" Grid.Column="2" Height="50" Width="150" 
-       HorizontalAlignment="Right" Name="AddShowBtn" Click="AddShowBtn_Click"/>
+                    HorizontalAlignment="Right" Name="AddShowBtn" Click="AddShowBtn_Click"/>
         </Grid>
     </Grid>
 </Window>

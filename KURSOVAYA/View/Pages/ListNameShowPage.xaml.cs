@@ -36,13 +36,16 @@ namespace KURSOVAYA.View.Pages
             FilterAgeCmb.DisplayMemberPath = "Ttitle";
             FilterAgeCmb.ItemsSource = ageLimits;
 
-            ageLimits.Insert(0, new AgeLimit() { Ttitle = "Все" });
 
             FilterCategoryCmb.SelectedValuePath = "Id";
             FilterCategoryCmb.DisplayMemberPath = "Title";
-            FilterCategoryCmb.ItemsSource = categoryShows;
 
+            ageLimits.Insert(0, new AgeLimit() { Ttitle = "Все" });
             categoryShows.Insert(0, new CategoryShow() { Title = "Все" });
+
+            FilterCategoryCmb.ItemsSource = categoryShows;
+            FilterAgeCmb.ItemsSource = ageLimits;
+
         }
 
         private void DeleteShowBtn_Click(object sender, RoutedEventArgs e)
@@ -77,31 +80,20 @@ namespace KURSOVAYA.View.Pages
         private void SearchBtn_Click(object sender, RoutedEventArgs e)
         {
 
-            ShowLv.ItemsSource = nameShow.
-               Where(a => a.Title.Contains(SearchTb.Text)).ToList();
+            FilterAndSearchShow();
         }
 
 
         private void SearchBtn_Click_1(object sender, RoutedEventArgs e)
         {
 
-            ShowLv.ItemsSource = nameShow.
-               Where(a => a.Title.Contains(SearchTb.Text)).ToList();
+            FilterAndSearchShow();
         }
 
         private void FilterAgeCmb_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
-            AgeLimit ageLimit = FilterAgeCmb.SelectedItem as AgeLimit;
-            if (FilterAgeCmb.SelectedIndex != 0)
-            {
-                ShowLv.ItemsSource = nameShow.Where(x => x.AgeLimit.Id == ageLimit.Id);
-
-            }
-            else
-            {
-                ShowLv.ItemsSource = nameShow;
-            }
+            FilterAndSearchShow();
         }
 
         private void FilterCategoryCmb_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -113,5 +105,30 @@ namespace KURSOVAYA.View.Pages
         {
 
         }
+
+        private void FilterAndSearchShow()
+        {
+            string searchText = SearchTb.Text;
+            AgeLimit ageLimit = FilterAgeCmb.SelectedItem as AgeLimit;
+            CategoryShow categoryShow = FilterCategoryCmb.SelectedItem as CategoryShow;
+
+
+            var filteredShows = nameShow.Where(s =>
+                (string.IsNullOrEmpty(searchText) ||
+                 s.Title.ToLower().Contains(searchText.ToLower())) &&
+                (ageLimit == null || ageLimit.Id == 0 ||
+                 s.AgeLimitID == ageLimit.Id) &&
+                (categoryShow == null || categoryShow.Id == 0 ||
+                 s.CategoryShowID == categoryShow.Id))
+                .ToList();
+
+            ShowLv.ItemsSource = filteredShows;
+        }
+
+        private void DateDP_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
+    
 }

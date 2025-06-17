@@ -18,10 +18,10 @@
         </Grid.RowDefinitions>
         <Grid>
             <Button Name ="BackBtn" Width="150" 
-                Content="Назад" HorizontalAlignment="Left"/>
+                Content="Назад" Click="BackBtn_Click_1" HorizontalAlignment="Left"/>
 
             <TextBlock Text="Информация о шоу" 
-               
+               FontWeight="UltraLight"
                FontSize="35" HorizontalAlignment="Center"/>
         </Grid>
 
@@ -38,7 +38,7 @@
             <TextBlock Text="{Binding NameShow.Title}" Grid.Column="2"
                        FontSize="30" HorizontalAlignment="Left"
                        VerticalAlignment="Top"
-                       FontWeight="Black" Grid.ColumnSpan="3"/>
+                       FontWeight="UltraBlack" Grid.ColumnSpan="3"/>
 
             <Grid Grid.Column="2">
                 <Grid.RowDefinitions>
@@ -51,7 +51,7 @@
                     <RowDefinition Height="10" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="10" />
-                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="25" />
                     <RowDefinition Height="10" />
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
@@ -83,13 +83,13 @@
 
                 <StackPanel Orientation="Horizontal" Grid.Row="9" >
                     <TextBlock Text="Оплата: "  FontWeight="UltraLight"  FontSize="30"/>
-                    <TextBlock  Grid.Row="7" FontWeight="UltraLight" Text="{Binding NameShow.IsPayout}" 
+                    <TextBlock  Grid.Row="7" FontWeight="UltraLight" Text="{Binding NameShow.IsPayoutText}" 
                      FontSize="30" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Grid.Row="11">
-                    <TextBlock Text="Адрес: " FontSize="30" FontWeight="UltraLight"/>
-                    <TextBlock  FontWeight="UltraLight" Text="{Binding NameShow.Address}" FontSize="30" />
+                    <TextBlock Text="Адрес: " FontSize="29" FontWeight="UltraLight"/>
+                    <TextBlock  FontWeight="UltraLight" Text="{Binding NameShow.Address}" FontSize="29" />
                 </StackPanel>
             </Grid>
         </Grid>

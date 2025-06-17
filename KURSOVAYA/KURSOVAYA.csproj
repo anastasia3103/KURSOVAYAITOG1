@@ -116,6 +116,9 @@
     <Compile Include="View\Pages\AdminInformationAboutShowPage.xaml.cs">
       <DependentUpon>AdminInformationAboutShowPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Pages\AdminInformationNameShow.xaml.cs">
+      <DependentUpon>AdminInformationNameShow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Pages\CatalogPage.xaml.cs">
       <DependentUpon>CatalogPage.xaml</DependentUpon>
     </Compile>
@@ -173,6 +176,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Pages\AdminInformationAboutShowPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Pages\AdminInformationNameShow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

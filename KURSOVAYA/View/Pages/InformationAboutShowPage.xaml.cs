@@ -39,31 +39,43 @@ namespace KURSOVAYA.View.Pages
             
             if (_selectedShow != null)
             {
-                var existingRecord = App.context.Record.FirstOrDefault(r => r.UserID == App.currentUser.Id && r.ShowID == _selectedShow.Id);
+                var existingRecord = App.context.Record.FirstOrDefault
+                    (r => r.UserID == App.currentUser.Id && r.ShowID == _selectedShow.Id);
 
                 if (existingRecord != null)
                 {
                     MessageBoxHelper.Warning("Вы уже зарегистрированы на это шоу!");
+                    return;
                 }
-                else
+
+                int registeredCount = App.context.Record.Count(r => r.ShowID == _selectedShow.Id);
+
+                if (registeredCount >= _selectedShow.QtyPersons)
                 {
-                    Record record = new Record()
-                    {
-                        UserID = App.currentUser.Id,
-                        ShowID = _selectedShow.Id
-                    };
-
-                    App.context.Record.Add(record);
-                    App.context.SaveChanges();
-
-                    MessageBoxHelper.Information("Вы успешно записались на шоу");
+                    MessageBoxHelper.Warning("Извините, все места на это шоу уже заняты!");
+                    return;
                 }
+
+                Record record = new Record()
+                {
+                    UserID = App.currentUser.Id,
+                    ShowID = _selectedShow.Id,
+                    IsArchived = false                
+                };
+
+                App.context.Record.Add(record);
+                App.context.SaveChanges();
+
+                MessageBoxHelper.Information($"Вы успешно записались на шоу! ");
             }
         }
 
-        private void BackBtn_Click(object sender, RoutedEventArgs e)
+        private void BackBtn_Click_1(object sender, RoutedEventArgs e)
         {
-            FrameHelper.MainUserFrame.Navigate(new CatalogPage());
+            if (NavigationService.CanGoBack)
+            {
+                NavigationService.GoBack();
+            }
         }
     }
 }

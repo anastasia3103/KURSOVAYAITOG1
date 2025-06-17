@@ -34,14 +34,15 @@ namespace KURSOVAYA.View.Pages
 
             FilterAgeCmb.SelectedValuePath = "Id";
             FilterAgeCmb.DisplayMemberPath = "Ttitle";
-            FilterAgeCmb.ItemsSource = ageLimits;
 
             FilterCategoryCmb.SelectedValuePath = "Id";
             FilterCategoryCmb.DisplayMemberPath = "Title";
-            FilterCategoryCmb.ItemsSource = categoryShows;
 
             ageLimits.Insert(0, new AgeLimit() { Ttitle = "Все" });
             categoryShows.Insert(0, new CategoryShow() { Title = "Все" });
+
+            FilterAgeCmb.ItemsSource = ageLimits;
+            FilterCategoryCmb.ItemsSource = categoryShows;
         }
 
         private void AddShowRecorbBtn_Click(object sender, RoutedEventArgs e)
@@ -55,73 +56,55 @@ namespace KURSOVAYA.View.Pages
 
         }
 
-        private void DeleteShowBtn_Click(object sender, RoutedEventArgs e)
-        {
-            if (ShowLv.SelectedItem == null)
-            {
-                MessageBoxHelper.Information("Выберите шоу для удаления");
-                return;
-            }
-
-            Show selectedShow = ShowLv.SelectedItem as Show;
-
-            var res = MessageBox.Show($"Вы уверены, что хотите удалить?",
-                "Подтверждение", MessageBoxButton.YesNo);
-
-            if (res == MessageBoxResult.Yes)
-            {
-                App.context.Show.Remove(selectedShow);
-                App.context.SaveChanges();
-                MessageBoxHelper.Information("Удалено");
-            }
-                ShowLv.ItemsSource = show;
-        }
-
 
         private void SearchBtn_Click_1(object sender, RoutedEventArgs e)
         {
 
-            ShowLv.ItemsSource = show.
-               Where(a => a.NameShow.Title.Contains(SearchTb.Text)).ToList();
+            FilterAndSearchShow();
         }
 
         private void FilterAgeCmb_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
-            AgeLimit ageLimit = FilterAgeCmb.SelectedItem as AgeLimit;
-            if (FilterAgeCmb.SelectedIndex != 0)
-            {
-                ShowLv.ItemsSource = show.Where(x => x.NameShow.AgeLimit.Id == ageLimit.Id);
-
-            }
-            else
-            {
-                ShowLv.ItemsSource = show;
-            }
+            FilterAndSearchShow();
         }
 
         private void FilterCategoryCmb_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
-            CategoryShow categoryShows = FilterCategoryCmb.SelectedItem as CategoryShow;
-            if (FilterCategoryCmb.SelectedIndex != 0)
-            {
-                ShowLv.ItemsSource = show.Where(x => x.NameShow.CategoryShow.Id == categoryShows.Id);
-
-            }
-            else
-            {
-                ShowLv.ItemsSource = show;
-            }
+            FilterAndSearchShow();
         }
 
         private void ShowLv_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var selectedShow = ShowLv.SelectedItem as Show;
+            //var selectedShow = ShowLv.SelectedItem as Show;
 
 
-            if (selectedShow == null) return;
-            NavigationService.Navigate(new View.Pages.AdminInformationAboutShowPage(selectedShow));
+            //if (selectedShow == null) return;
+            //NavigationService.Navigate(new View.Pages.AdminInformationAboutShowPage(selectedShow));
         }
+
+        private void FilterAndSearchShow()
+        {
+            string searchText = SearchTb.Text.Trim();
+            AgeLimit ageLimit = FilterAgeCmb.SelectedItem as AgeLimit;
+            CategoryShow categoryShow = FilterCategoryCmb.SelectedItem as CategoryShow;
+            DateTime? selectedDate = DateDP.SelectedDate;
+
+            var filteredShows = show.Where(s =>
+                (string.IsNullOrEmpty(searchText) ||
+                 s.NameShow.Title.ToLower().Contains(searchText.ToLower())) &&
+                (ageLimit == null || ageLimit.Id == 0 ||
+                 s.NameShow.AgeLimitID == ageLimit.Id) &&
+                (categoryShow == null || categoryShow.Id == 0 ||
+                 s.NameShow.CategoryShowID == categoryShow.Id) &&
+                (!selectedDate.HasValue ||
+                 s.Date.Date == selectedDate.Value.Date))
+                .ToList();
+
+            ShowLv.ItemsSource = filteredShows;
+        }
+
+
     }
 }

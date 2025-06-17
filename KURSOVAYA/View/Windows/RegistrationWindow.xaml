@@ -10,56 +10,11 @@
         WindowStartupLocation="CenterScreen">
     <Grid Margin="15" >
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="400" />
-            <ColumnDefinition Width="10" />
-            <ColumnDefinition Width="450" />
-        </Grid.ColumnDefinitions>
-
-        <Grid Background="LightBlue">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="80" />
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="300" />
-                <RowDefinition Height="75" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1.5*" />
-                <ColumnDefinition Width="10" />
-                <ColumnDefinition Width="1*" />
-            </Grid.ColumnDefinitions>
-
-
-            <Image Source="/Resource/MYLOGO.png"  Grid.Row="1" Width="300"
-                 HorizontalAlignment="Center" Grid.ColumnSpan="3"/>
-            <Image Source="/Resource/1684905304_new_preview_1649535218_new_preview_Screenshot_20210720-211216_Telegram.jpg" 
-           Grid.Row="2"/>
-            <Grid Grid.Row="2" Grid.Column="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="100" />
-                    <RowDefinition Height="1*" />
-                    <RowDefinition Height="1*" />
-                    <RowDefinition Height="1*" />
-                </Grid.RowDefinitions>
-
-                <Button  Grid.Row="1" Content="Вход"
-                 Width="140" Height="40" HorizontalAlignment="Right"
-                 Style="{DynamicResource AuthBtn}" 
-                Name="EntryBtn" Click="EntryBtn_Click"  
-                />
-
-                <Button Grid.Row="2" Content="Регистрация"      
-                Width="140" Height="40" Style="{DynamicResource AuthBtn}"
-                HorizontalAlignment="Right"
-                Background="Transparent"/>
-            </Grid>
-        </Grid>
-
-
         <!--#region Левая часть-->
         <Grid Grid.Column="3" Margin="20">
             <Grid.RowDefinitions>
-                <RowDefinition Height="30" />
+                <RowDefinition Height="130" />
+                <RowDefinition Height="10" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="15" />
                 <RowDefinition Height="30" />
@@ -78,7 +33,7 @@
                 <RowDefinition Height="10" />
                 <RowDefinition Height="30" />
                 <RowDefinition Height="10" />
-                <RowDefinition Height="50" />
+                <RowDefinition Height="40" />
                 <RowDefinition Height="40" />
 
             </Grid.RowDefinitions>
@@ -86,36 +41,46 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="10" />
-                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="350" />
             </Grid.ColumnDefinitions>
 
+            <Image Source="/Resource/MYLOGO.png" Width="300"
+             HorizontalAlignment="Center" Grid.ColumnSpan="3"/>
 
-            
-            <TextBlock Grid.Row="1" Grid.ColumnSpan="3" Text="Регистрация"
+
+            <TextBlock Grid.Row="2" Grid.ColumnSpan="3" Text="Регистрация"
                        HorizontalAlignment="Center" FontSize="30" />
-            <TextBlock Grid.Row="3" Text="Фамилия" FontSize="20" HorizontalAlignment="Left"  />
-            <TextBlock Grid.Row="5" Text="Имя" FontSize="20" HorizontalAlignment="Left" />
-            <TextBlock Grid.Row="7" Text="Отчество" FontSize="20" HorizontalAlignment="Left"/>
-            <TextBlock Grid.Row="9" Text="Дата рождения" FontSize="20" HorizontalAlignment="Left"  TextWrapping="Wrap" />
-            <TextBlock Grid.Row="11" Text="Логин" FontSize="20" HorizontalAlignment="Left"  />
+            <TextBlock Grid.Row="4" Text="Фамилия" FontSize="20" HorizontalAlignment="Left"  />
+            <TextBlock Grid.Row="6" Text="Имя" FontSize="20" HorizontalAlignment="Left" />
+            <TextBlock Grid.Row="8" Text="Отчество" FontSize="20" HorizontalAlignment="Left"/>
+            <TextBlock Grid.Row="10" Text="Дата рождения" FontSize="20" HorizontalAlignment="Left"  TextWrapping="Wrap" />
+            <TextBlock Grid.Row="12" Text="Логин" FontSize="20" HorizontalAlignment="Left"  />
 
-            <TextBox Grid.Row="3" Grid.Column="2" Name="SurnameTb" />
-            <TextBox Grid.Row="5" Grid.Column="2" Name="NameTb"/>
-            <TextBox Grid.Row="7" Grid.Column="2" Name="MiddlenameTb"/>
+            <TextBox Grid.Row="4" Grid.Column="2" Name="SurnameTb" />
+            <TextBox Grid.Row="6" Grid.Column="2" Name="NameTb"/>
+            <TextBox Grid.Row="8" Grid.Column="2" Name="MiddlenameTb"/>
 
-            <DatePicker Name="DateOfBirthDp"  Grid.Row="9" Grid.Column="2"/>
+            <DatePicker Name="DateOfBirthDp"  Grid.Row="10" Grid.Column="2"/>
 
-            <TextBox Name="LoginTb" Grid.Row="11" Grid.Column="2" />
+            <TextBox Name="LoginTb" Grid.Row="12" Grid.Column="2" />
 
-            <TextBlock Grid.Row="13" Text="Телефон" FontSize="20" HorizontalAlignment="Left"   />
-            <TextBlock Grid.Row="15"  Text="Почта" FontSize="20" HorizontalAlignment="Left"  />
-            <TextBlock Grid.Row="17"   Text="Пароль" FontSize="20" HorizontalAlignment="Left"  />
+            <TextBlock Grid.Row="14" Text="Телефон" FontSize="20" HorizontalAlignment="Left"   />
+            <TextBlock Grid.Row="16"  Text="Почта" FontSize="20" HorizontalAlignment="Left"  />
+            <TextBlock Grid.Row="18"   Text="Пароль" FontSize="20" HorizontalAlignment="Left"  />
 
 
-            <PasswordBox Name="PasswordPb"  Grid.Row="17" Grid.Column="3"/>
-            <TextBox Name="PhoneTb" Grid.Row="13" Grid.Column="3"/>
-            <TextBox Name="EmailTb" Grid.Row="15"   Grid.Column="3"/>
-            <Button Name="LoginBtn" Content="Зарегистрироваться" Grid.Row="19" 
+            <PasswordBox Name="PasswordPb"  Grid.Row="18" Grid.Column="3"/>
+            <TextBox Name="PhoneTb" Grid.Row="14" Grid.Column="3"/>
+            <TextBox Name="EmailTb" Grid.Row="16"   Grid.Column="3"/>
+
+            <TextBlock Grid.Column="2" Grid.Row="20" HorizontalAlignment="Right" FontSize="15">
+            Уже есть аккаунт?
+            <Hyperlink Name="EntryHl" Click="EntryHl_Click">
+                Войти
+            </Hyperlink>
+            </TextBlock>
+
+            <Button Name="LoginBtn" Content="Зарегистрироваться" Grid.Row="22" 
                     Grid.ColumnSpan="4 " Width="200"
                     Click="LoginBtn_Click"  HorizontalAlignment="Right" />
             <!--#endregion-->

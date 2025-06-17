@@ -23,18 +23,22 @@ namespace KURSOVAYA.View.Pages
     {
 
         private List<Record> record = App.context.Record.ToList();
+        private List<NameShow> nameShow = App.context.NameShow.ToList();
+
 
         public OrderListPage()
         {
             InitializeComponent();
 
 
-            OrderLv.ItemsSource = record;
-
             FilterCmb.SelectedValuePath = "Id";
             FilterCmb.DisplayMemberPath = "Title";
-            FilterCmb.ItemsSource = App.context.NameShow.ToList(); 
 
+            nameShow.Insert(0, new NameShow() { Title = "Все" });
+
+            FilterCmb.ItemsSource = nameShow;
+
+            OrderLv.ItemsSource = record;
 
         }
 
@@ -45,18 +49,25 @@ namespace KURSOVAYA.View.Pages
 
         private void FilterCmb_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            
+             
+        }
+
+        private void FilterCmb_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
             NameShow nameShow = FilterCmb.SelectedItem as NameShow;
 
             if (FilterCmb.SelectedIndex != 0)
             {
-                OrderLv.ItemsSource = record.Where(x => x.Show.NameShow.Id == nameShow.Id);
+                OrderLv.ItemsSource = record.
+                    Where(x => x.Show.NameShow.Id == nameShow.Id);
 
             }
             else
             {
                 OrderLv.ItemsSource = record;
             }
-
         }
+
     }
 }

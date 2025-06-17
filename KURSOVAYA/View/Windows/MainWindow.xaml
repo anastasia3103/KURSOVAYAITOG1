@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KURSOVAYA"
         mc:Ignorable="d"
-        Title="Главное окно" MinHeight="820" MinWidth="1560"
+        Title="Главное окно"
+        MinHeight="820" MinWidth="1560"
         WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
@@ -27,11 +28,6 @@
 
                 <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
 
-                    <Button FontFamily="Myanmar Text" Style="{DynamicResource MenuBtn}" VerticalAlignment="Top" 
-                   FontWeight="DemiBold" Width="160" Name="MainBtn"
-                Content="Главная" Click="MainBtn_Click"  Height="65"/>
-
-                    <Separator Height="0" Width="20"/>
 
                     <Button FontFamily="Myanmar Text" Style="{DynamicResource MenuBtn}" VerticalAlignment="Top" 
                    FontWeight="DemiBold" Width="160" Name="CatalogBtn"

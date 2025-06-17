@@ -46,7 +46,7 @@
 
         <TextBlock Grid.Column="2" HorizontalAlignment="Right" Grid.Row="8" FontSize="15">
             Нет аккаунта?
-            <Hyperlink>
+            <Hyperlink Name="RegHl" Click="RegHl_Click">
                 Зарегистрироваться
             </Hyperlink>
         </TextBlock>

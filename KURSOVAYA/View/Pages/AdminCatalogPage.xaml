@@ -41,10 +41,10 @@
 
             <TextBox Grid.Row="1" Name="SearchTb"/>
             <Button Content="Найти"  Name="SearchBtn" Grid.Column="2" Grid.Row="1" Click="SearchBtn_Click_1" />
-            <ComboBox Grid.Column="4"   Name="FilterAgeCmb" Grid.Row="1" Width="300"
+            <ComboBox Grid.Column="4" SelectedIndex="0"  Name="FilterAgeCmb" Grid.Row="1" Width="300"
       Height="50" HorizontalAlignment="left" 
               SelectionChanged="FilterAgeCmb_SelectionChanged"/>
-            <ComboBox Grid.Column="6"   Name="FilterCategoryCmb" Grid.Row="1" Width="300"
+            <ComboBox Grid.Column="6" SelectedIndex="0"  Name="FilterCategoryCmb" Grid.Row="1" Width="300"
       Height="50" HorizontalAlignment="left" 
               SelectionChanged="FilterCategoryCmb_SelectionChanged"/>
             <DatePicker Grid.Column="8"   Name="DateDP" Grid.Row="1" Width="300"
@@ -86,14 +86,29 @@
                                 <Grid.Background>
                                     <ImageBrush ImageSource="{Binding NameShow.Photo}" Stretch="UniformToFill"/>
                                 </Grid.Background>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="AUTO" />
+                                    <RowDefinition Height="80" />
+                                    <RowDefinition Height="30" />
+                                </Grid.RowDefinitions>
                                 <StackPanel  Orientation="Horizontal" VerticalAlignment="Top" Margin="10">
-                                    <TextBlock Text="{Binding NameShow.IsPayout}" 
-                            FontSize="16" Foreground="White" HorizontalAlignment="Left"
-                                       Background="#60FF0000" Padding="10" FontWeight="Black"/>
-                                    <Separator Height="0" Width="50" />
-                                    <TextBlock Text="{Binding NameShow.AgeLimit.Ttitle}" HorizontalAlignment="Right"
-                            FontSize="16" Foreground="Red" FontWeight="Black" Grid.Row="6" />
+                                    <Border CornerRadius="7" Background="Gray" Padding="5">
+                                        <TextBlock Text="{Binding NameShow.IsPayoutText}" 
+FontSize="16" Foreground="White" HorizontalAlignment="Left"
+FontWeight="Black"/>
+                                    </Border>
+                                    <Separator Height="0" Width="150"/>
+                                    <Border CornerRadius="7" Background="Red" Padding="4">
+                                        <TextBlock Text="{Binding NameShow.AgeLimit.Ttitle}" 
+FontSize="16" Foreground="White" FontWeight="Black" Grid.Row="6"/>
+                                    </Border>
                                 </StackPanel>
+                                <Border CornerRadius="5" Margin="5 0 5 5 " HorizontalAlignment="Left" Width="45" Grid.Row="2"
+                         Background="#AAFFA500" Padding="5">
+                                    <TextBlock Text="{Binding NameShow.AverageRating, StringFormat=F2}" 
+HorizontalAlignment="Left" Width="40"
+FontSize="16" Foreground="White" FontWeight="Black" VerticalAlignment="Center"/>
+                                </Border>
                             </Grid>
                             <Grid Grid.Row="2">
                                 <Grid.RowDefinitions>

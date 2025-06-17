@@ -1,4 +1,5 @@
-﻿using KURSOVAYA.Model;
+﻿using KURSOVAYA.AppData;
+using KURSOVAYA.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,27 +23,30 @@ namespace KURSOVAYA.View.Pages
     public partial class RecordInformationShowPage : Page
     {
 
-        private Show _selectedShow;
-        public RecordInformationShowPage(object selectedShow)
+        private Record _selectedRecordShow;
+        public RecordInformationShowPage(Record selectedRecordShow)
         {
             InitializeComponent();
 
 
-            _selectedShow = selectedShow as Show;
+            _selectedRecordShow = selectedRecordShow;
 
-            DataContext = selectedShow;
+            DataContext = _selectedRecordShow;
 
             
         }
 
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
-            FrameHelper.MainUserFrame.Navigate(new View.Pages.RecordPage());
+            if (NavigationService.CanGoBack)
+            {
+                NavigationService.GoBack();
+            }
         }
 
         private void RemoveRecordBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            
         }
     }
 }

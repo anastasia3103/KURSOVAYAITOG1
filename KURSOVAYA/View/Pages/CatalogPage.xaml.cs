@@ -22,7 +22,7 @@ namespace KURSOVAYA.View.Pages
     /// </summary>
     public partial class CatalogPage : Page
     {
-        private List<Show> show = App.context.Show.OrderByDescending(s => s.Date).ToList();
+        private List<Show> show = App.context.Show.Where(s => s.StatusID == 1).OrderByDescending(s => s.Date).ToList();
         private List<AgeLimit> ageLimits = App.context.AgeLimit.ToList();
         private List<CategoryShow> categoryShows = App.context.CategoryShow.ToList();
         public CatalogPage()
@@ -69,7 +69,6 @@ namespace KURSOVAYA.View.Pages
         {
             var selectedShow = ShowLv.SelectedItem as Show;
 
-
             if (selectedShow == null) return;
             NavigationService.Navigate(new View.Pages.InformationAboutShowPage(selectedShow));
 
@@ -77,22 +76,23 @@ namespace KURSOVAYA.View.Pages
 
         private void FilterAndSearchShow()
         {
-            string search = ActivityTb.Text;
+            string searchText = ActivityTb.Text.Trim();
             AgeLimit ageLimit = FilterAgeCmb.SelectedItem as AgeLimit;
             CategoryShow categoryShow = FilterCategoryCmb.SelectedItem as CategoryShow;
-            //DateTime selectedDate = DateDP.SelectedDate == null ? DateTime.MinValue : DateDP.SelectedDate.Value;
+            DateTime? selectedDate = DateDP.SelectedDate;
 
-            if (ageLimit != null && categoryShow != null  /* && selectedDate != null*/ && search != null)
-            {
+            var filteredShows = show.Where(s =>
+                (string.IsNullOrEmpty(searchText) ||
+                 s.NameShow.Title.ToLower().Contains(searchText.ToLower())) &&
+                (ageLimit == null || ageLimit.Id == 0 ||
+                 s.NameShow.AgeLimitID == ageLimit.Id) &&
+                (categoryShow == null || categoryShow.Id == 0 ||
+                 s.NameShow.CategoryShowID == categoryShow.Id) &&
+                (!selectedDate.HasValue ||
+                 s.Date.Date == selectedDate.Value.Date))
+                .ToList(); 
 
-                var filteredShow = show.Where(s => (string.IsNullOrEmpty(search) || s.NameShow.Title.ToLower().Contains(search.ToLower())) &&
-                (ageLimit.Id == 0 || s.NameShow.AgeLimitID == ageLimit.Id) &&
-                (categoryShow.Id == 0 || s.NameShow.CategoryShowID == categoryShow.Id));
-                //(string.IsNullOrEmpty(selectedDate.ToShortDateString()) ||*/ s.Date.ToShortDateString() == selectedDate.ToShortDateString()));
-
-                ShowLv.ItemsSource = filteredShow;
-            }
-
+            ShowLv.ItemsSource = filteredShows;
         }
 
         private void DateDP_SelectedDateChanged(object sender, SelectionChangedEventArgs e)

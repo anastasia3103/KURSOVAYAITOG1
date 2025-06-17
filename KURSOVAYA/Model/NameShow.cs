@@ -11,7 +11,8 @@ namespace KURSOVAYA.Model
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Linq;
+
     public partial class NameShow
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -33,6 +34,13 @@ namespace KURSOVAYA.Model
             get
             {
                 return IsPayout == true ? "С оплатой" : "Без оплаты";
+            }
+        }
+        public double? AverageRating
+        {
+            get
+            {
+                return Show.Select(s => s.Record.Average(r => r.Rating)).Sum();
             }
         }
         public virtual AgeLimit AgeLimit { get; set; }

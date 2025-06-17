@@ -39,7 +39,7 @@ namespace KURSOVAYA
                     App.currentUser = currentUser;
                     MessageBoxHelper.Information("Авторизация прошла успешно!");
 
-                    ArchiveShow();
+                    ArchiveRecord();
 
                     if (currentUser.RoleID == 1)
                     {
@@ -67,15 +67,8 @@ namespace KURSOVAYA
         }
 
 
-        private void RegBtn_Click(object sender, RoutedEventArgs e)
-        {
 
-            RegistrationWindow registrationWindow = new RegistrationWindow();
-            registrationWindow.Show();
-            this.Close();
-        }
-
-        public void ArchiveShow()
+        public void ArchiveRecord()
         {
             List<Record> records = App.context.Record.ToList();
 
@@ -86,10 +79,19 @@ namespace KURSOVAYA
                 if (dateTime < DateTime.Now)
                 {
                     record.IsArchived = true;
+                    record.Show.StatusID = 3;
 
                     App.context.SaveChanges();
                 }
             }
+        }
+
+        private void RegHl_Click(object sender, RoutedEventArgs e)
+        {
+
+            RegistrationWindow registrationWindow = new RegistrationWindow();
+            registrationWindow.Show();
+            this.Close();
         }
     }
 }

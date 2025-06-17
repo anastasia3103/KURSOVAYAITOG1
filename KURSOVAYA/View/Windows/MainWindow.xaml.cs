@@ -26,7 +26,6 @@ namespace KURSOVAYA
             InitializeComponent();
 
 
-            MainUserFrame.Navigate(new View.Pages.MainPage());
 
         }
 

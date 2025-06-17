@@ -30,22 +30,18 @@ namespace KURSOVAYA.View.Windows
 
             AgeLimitCmb.SelectedValuePath = "Id";
             AgeLimitCmb.DisplayMemberPath = "Ttitle";
-            AgeLimitCmb.ItemsSource = App.context.AgeLimit.ToList();
 
             CategoryCmb.SelectedValuePath = "Id";
             CategoryCmb.DisplayMemberPath = "Title";
-            CategoryCmb.ItemsSource = App.context.CategoryShow.ToList();
 
             PayoutCmb.Items.Add("С оплатой");
             PayoutCmb.Items.Add("Без оплаты");
 
 
+            AgeLimitCmb.ItemsSource = App.context.AgeLimit.ToList();
+            CategoryCmb.ItemsSource = App.context.CategoryShow.ToList();
 
-        }
 
-        private void AddPhotoBtn_Click(object sender, RoutedEventArgs e)
-        {
-            
 
         }
 
@@ -56,10 +52,10 @@ namespace KURSOVAYA.View.Windows
                 Title = TitleTb.Text,
                 Discription = DescriptionTb.Text,
                 AgeLimit = AgeLimitCmb.SelectedItem as AgeLimit,
-                Photo = PhotoTb.Text,
+                Photo = PhotoPathTbl.Text,
                 CategoryShow = CategoryCmb.SelectedItem as CategoryShow,
                 Address = AddressTb.Text,
-                IsPayout = (string)PayoutCmb.SelectedItem == "С оплатой"
+                IsPayout = (string)PayoutCmb.SelectedItem == "С оплатой" ? true : false
 
 
             };
@@ -71,10 +67,21 @@ namespace KURSOVAYA.View.Windows
             TitleTb.Text = "";
             DescriptionTb.Text = "";
             AgeLimitCmb.Text = "";
-            PhotoTb.Text = "";
             PayoutCmb.Text = "";
             CategoryCmb.Text = "";
             AddressTb.Text = "";
+        }
+
+        private void PhotoBtn_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                PhotoPathTbl.Text = openFileDialog.FileName;
+
+                MessageBoxHelper.Information("Фото успешно добавлено!");
+            }
         }
     }
 }

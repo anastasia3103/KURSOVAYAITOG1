@@ -35,15 +35,16 @@
             <TextBlock Text="По возрасту" Grid.Column="4" FontSize="30" />
             <TextBlock Text="По категории" Grid.Column="6" FontSize="30" />
 
-            <TextBox Grid.Row="1" Name="SearchTb"/>
+            <TextBox Grid.Row="1"  Name="SearchTb"/>
             <Button Content="Найти"  Name="SearchBtn" Grid.Column="2" Grid.Row="1" Click="SearchBtn_Click_1" />
-            <ComboBox Grid.Column="4"   Name="FilterAgeCmb" Grid.Row="1" Width="300"
+            <ComboBox Grid.Column="4"  SelectedIndex="0" Name="FilterAgeCmb" Grid.Row="1" Width="300"
             Height="50" HorizontalAlignment="left" 
             SelectionChanged="FilterAgeCmb_SelectionChanged"/>
-            <ComboBox Grid.Column="6"   Name="FilterCategoryCmb" Grid.Row="1" Width="300"
+            <ComboBox Grid.Column="6" SelectedIndex="0"  Name="FilterCategoryCmb" Grid.Row="1" Width="300"
                 Height="50" HorizontalAlignment="left" 
                 SelectionChanged="FilterCategoryCmb_SelectionChanged"/>
-            
+
+
 
         </Grid>
 
@@ -58,7 +59,6 @@
 
             <Button Name="AddShowRecorbBtn" Click="AddShowRecorbBtn_Click" 
                 Content="Добавить шоу"/>
-            <Button Name="DeleteShowBtn" Click="DeleteShowBtn_Click"  Content="Удалить" Grid.Column="2"/>
         </Grid>
         
         <ListBox Grid.Row="4" Name="ShowLv"
@@ -82,14 +82,14 @@
                             </Grid.RowDefinitions>
                             <Grid>
                                 <Grid.Background>
-                                    <ImageBrush ImageSource="{Binding NameShow.Photo}" Stretch="UniformToFill"/>
+                                    <ImageBrush ImageSource="{Binding Photo}" Stretch="UniformToFill"/>
                                 </Grid.Background>
                                 <StackPanel  Orientation="Horizontal" VerticalAlignment="Top" Margin="10">
-                                    <TextBlock Text="{Binding NameShow.IsPayout}" 
+                                    <TextBlock Text="{Binding IsPayoutText}" 
                             FontSize="16" Foreground="White" HorizontalAlignment="Left"
-                                       Background="#60FF0000" Padding="10" FontWeight="Black"/>
-                                    <Separator Height="0" Width="50" />
-                                    <TextBlock Text="{Binding NameShow.AgeLimit.Ttitle}" HorizontalAlignment="Right"
+                                       Background="Black" Padding="10" FontWeight="Black"/>
+                                    <Separator Height="0" Width="145" />
+                                    <TextBlock Text="{Binding AgeLimit.Ttitle}" HorizontalAlignment="Right"
                             FontSize="16" Foreground="Red" FontWeight="Black" Grid.Row="6" />
                                 </StackPanel>
                             </Grid>
@@ -100,7 +100,7 @@
                                     <RowDefinition Height="auto"/>
                                 </Grid.RowDefinitions>
 
-                                <TextBlock Text="{Binding NameShow.Title}" FontWeight="Black"
+                                <TextBlock Text="{Binding Title}" FontWeight="Black"
 HorizontalAlignment="Left" FontSize="24"/>
                                 <TextBlock Text="{Binding Date, StringFormat={}{0:dd.MM.yyy}}" 
 HorizontalAlignment="Left" FontSize="16" Grid.Row="2" />

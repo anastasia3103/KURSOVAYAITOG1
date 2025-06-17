@@ -23,7 +23,7 @@ namespace KURSOVAYA.View.Pages
     public partial class RecordPage : Page
     {
 
-        private List<Show> show = App.context.Show.ToList();
+        private List<NameShow> nameShow = App.context.NameShow.ToList();
         private List<AgeLimit> ageLimits = App.context.AgeLimit.ToList();
         private List<CategoryShow> categoryShows = App.context.CategoryShow.ToList();
         public RecordPage()
@@ -32,15 +32,16 @@ namespace KURSOVAYA.View.Pages
 
             FilterAgeCmb.SelectedValuePath = "Id";
             FilterAgeCmb.DisplayMemberPath = "Ttitle";
-            FilterAgeCmb.ItemsSource = App.context.AgeLimit.ToList();
 
             FilterCategoryCmb.SelectedValuePath = "Id";
             FilterCategoryCmb.DisplayMemberPath = "Title";
-            FilterCategoryCmb.ItemsSource = App.context.CategoryShow.ToList();
 
             ageLimits.Insert(0, new AgeLimit() { Ttitle = "Все" });
             categoryShows.Insert(0, new CategoryShow() { Title = "Все" });
 
+
+            FilterAgeCmb.ItemsSource = ageLimits;
+            FilterCategoryCmb.ItemsSource = categoryShows;
 
             ShowLv.ItemsSource = App.context.Record.
                 Where(u => u.User.Id == App.currentUser.Id && u.IsArchived == false).ToList();
@@ -48,71 +49,54 @@ namespace KURSOVAYA.View.Pages
         }
 
 
-
-        private void MoreInformationBtn_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
- 
-
         private void SearchBtn_Click_1(object sender, RoutedEventArgs e)
         {
-            ShowLv.ItemsSource = show.
-             Where(a => a.NameShow.Title.Contains(ActivityTb.Text)).ToList();
+            ShowLv.ItemsSource = nameShow.
+             Where(a => a.Title.Contains(ActivityTb.Text)).ToList();
         }
 
         private void FilterAgeCmb_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            AgeLimit ageLimit = FilterAgeCmb.SelectedItem as AgeLimit;
-            if (FilterAgeCmb.SelectedIndex != 0)
-            {
-                ShowLv.ItemsSource = App.context.Record.
-                Where(u => u.User.Id == App.currentUser.Id).ToList().Where(x => x.Show.NameShow.AgeLimit.Id == ageLimit.Id);
-
-            }
-            else
-            {
-
-
-                ShowLv.ItemsSource = App.context.Record.
-                    Where(u => u.User.Id == App.currentUser.Id).ToList();
-            }
+            FilterAndSearchShow();
         }
 
         private void FilterCategoryCmb_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            FilterAndSearchShow();
+        }
 
-            CategoryShow categoryShows = FilterCategoryCmb.SelectedItem as CategoryShow;
-            if (FilterCategoryCmb.SelectedIndex != 0)
-            {
-                ShowLv.ItemsSource = App.context.Record.
-                Where(u => u.User.Id == App.currentUser.Id).ToList().Where
-                (x => x.Show.NameShow.CategoryShow.Id == categoryShows.Id);
 
-            }
-            else
+        private void ShowLv_SelectionChanged_2(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedRecordShow = ShowLv.SelectedItem as Record;
+
+            if (selectedRecordShow != null)
             {
-                ShowLv.ItemsSource = App.context.Record.
-                    Where(u => u.User.Id == App.currentUser.Id).ToList();
+                NavigationService.Navigate(new View.Pages.RecordInformationShowPage(selectedRecordShow));
             }
         }
 
-        private void ShowLv_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void FilterAndSearchShow()
         {
+            string searchText = ActivityTb.Text.Trim();
+            AgeLimit ageLimit = FilterAgeCmb.SelectedItem as AgeLimit;
+            CategoryShow categoryShow = FilterCategoryCmb.SelectedItem as CategoryShow;
+            DateTime? selectedDate = DateDP.SelectedDate;
 
-            var selectedShow = ShowLv.SelectedItem as Show;
+            var filteredShows = nameShow.Where(s =>
+                           (string.IsNullOrEmpty(searchText) ||
+                            s.Title.ToLower().Contains(searchText.ToLower())) &&
+                           (ageLimit == null || ageLimit.Id == 0 ||
+                            s.CategoryShowID == categoryShow.Id))
+                           .ToList();
 
+            ShowLv.ItemsSource = filteredShows;
 
-            if (selectedShow == null) return;
-            NavigationService.Navigate(new View.Pages.RecordInformationShowPage(selectedShow));
         }
 
-        private void ShowLv_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        private void DateDP_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            var selectedShow = ShowLv.SelectedItem as Show;
 
-            if (selectedShow == null) return;
-            NavigationService.Navigate(new View.Pages.RecordInformationShowPage(selectedShow));
         }
     }
 }
